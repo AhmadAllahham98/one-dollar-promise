@@ -1,73 +1,143 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Colors - References (Raw Palette) */
+  --color-amber-700: #b58650;
+  --color-amber-400: #f4aa4f;
+  --color-stone-600: #756451;
+  --color-slate-700: #40484b;
+  --color-slate-900: #253136;
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Colors - Semantics (How we use them) */
+  --color-primary: var(--color-amber-400);
+  --color-accent: var(--color-amber-700);
+  --color-accent2: var(--color-stone-600);
+  --color-surface-100: var(--color-slate-900);
+  --color-surface-200: var(--color-slate-700);
+  --color-text-primary: var(--color-white);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Dimensions - References */
+  --dim-075: 6px;
+  --dim-100: 8px;
+  --dim-150: 12px;
+  --dim-200: 16px;
+  --dim-300: 24px;
+  --dim-700: 56px;
+
+  /* Spacing - Semantics */
+  --spacing-xsm: var(--dim-100);
+  --spacing-sm: var(--dim-150);
+  --spacing-md: var(--dim-200);
+  --spacing-lg: var(--dim-300);
+  --spacing-xlg: var(--dim-700);
+
+  /* Radius - Semantics */
+  --radius-lg: var(--dim-100);
+  --radius-sm: var(--dim-075);
+
+  /* Typography Families */
+  --font-display: 'Playfair Display', serif;
+  --font-interface: 'Roboto', sans-serif;
+
+  /* Grid Tokens */
+  --grid-desktop-cols: 12;
+  --grid-desktop-gap: 24px;
+  --grid-mobile-cols: 4;
+  --grid-mobile-gap: 16px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* --- Modern Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-a:hover {
-  color: #535bf2;
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  line-height: 1.5;
+  font-family: var(--font-interface);
+  background-color: var(--color-surface-100);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* --- Typography Utilities --- */
+.font-display-lg {
+  font-family: var(--font-display);
+  font-size: 76px;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.font-display-md {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
-button:hover {
-  border-color: #646cff;
+.font-display-sm {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.font-interface-lg {
+  font-family: var(--font-interface);
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.font-interface-md {
+  font-family: var(--font-interface);
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.font-interface-sm {
+  font-family: var(--font-interface);
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+/* --- Layout Utilities --- */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+    max-width: 1440px;
   }
+}
 
-  a:hover {
-    color: #747bff;
-  }
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-mobile-cols), 1fr);
+  gap: var(--grid-mobile-gap);
+}
 
-  button {
-    background-color: #f9f9f9;
+@media (min-width: 768px) {
+  .grid-layout {
+    grid-template-columns: repeat(var(--grid-desktop-cols), 1fr);
+    gap: var(--grid-desktop-gap);
   }
 }
