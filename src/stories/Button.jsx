@@ -1,39 +1,84 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
-import './button.css';
-
-/** Primary UI component for user interaction */
+/**
+ * Unified Button component supporting multiple sizes and styles.
+ */
 export const Button = ({
-  primary = false,
-  backgroundColor = null,
-  size = 'medium',
-  label,
+  size = 'large',
+  style = 'solid',
+  label = 'Button',
+  iconLeft: IconLeft = null,
+  iconRight: IconRight = null,
+  onClick,
+  className = '',
   ...props
 }) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  const baseStyles = 'inline-flex items-center justify-center gap-xsm font-bold transition-all cursor-pointer';
+
+  const sizeStyles = {
+    large: 'py-sm px-md rounded-lg font-interface-md',
+    small: 'py-xsm px-sm rounded-sm font-interface-sm',
+  };
+
+  const variantStyles = {
+    solid: 'bg-surface-200 text-white shadow-main border-none hover:bg-white/10',
+    outline: 'bg-transparent border-2 border-surface-200 text-white shadow-main hover:bg-white/10 hover:border-transparent',
+    ghost: 'bg-transparent border-none text-white hover:bg-white/10',
+  };
+
+  const iconSize = size === 'large' ? 'w-5 h-5' : 'w-4 h-4';
+
   return (
     <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={backgroundColor && { backgroundColor }}
+      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[style]} ${className}`}
+      onClick={onClick}
       {...props}
     >
+      {IconLeft && <IconLeft className={iconSize} />}
       {label}
+      {IconRight && <IconRight className={iconSize} />}
     </button>
   );
 };
 
 Button.propTypes = {
-  /** Is this the principal call to action on the page? */
-  primary: PropTypes.bool,
-  /** What background color to use */
-  backgroundColor: PropTypes.string,
-  /** How large should the button be? */
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  /** Button contents */
-  label: PropTypes.string.isRequired,
-  /** Optional click handler */
+  /**
+   * How large should the button be?
+   */
+  size: PropTypes.oneOf(['small', 'large']),
+  /**
+   * The visual style of the button
+   */
+  style: PropTypes.oneOf(['solid', 'outline', 'ghost']),
+  /**
+   * The text label for the button
+   */
+  label: PropTypes.string,
+  /**
+   * Optional icon to display on the left
+   */
+  iconLeft: PropTypes.elementType,
+  /**
+   * Optional icon to display on the right
+   */
+  iconRight: PropTypes.elementType,
+  /**
+   * Click handler
+   */
   onClick: PropTypes.func,
+  /**
+   * Additional tailwind classes
+   */
+  className: PropTypes.string,
+};
+
+Button.defaultProps = {
+  size: 'large',
+  style: 'solid',
+  label: 'Button',
+  iconLeft: null,
+  iconRight: null,
+  onClick: undefined,
+  className: '',
 };

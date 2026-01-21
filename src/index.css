@@ -62,27 +62,27 @@
 /* Typography Utilities - Mapping tokens to Tailwind patterns */
 @layer utilities {
   .font-display-lg {
-    @apply font-display text-[76px] leading-[1.2] font-normal;
+    @apply font-display text-[76px] leading-[1.2];
   }
 
   .font-display-md {
-    @apply font-display text-[36px] leading-[1.2] font-normal;
+    @apply font-display text-[36px] leading-[1.2];
   }
 
   .font-display-sm {
-    @apply font-display text-[28px] leading-[1.2] font-normal;
+    @apply font-display text-[28px] leading-[1.2];
   }
 
   .font-interface-lg {
-    @apply font-interface text-[21px] leading-[1.2] font-normal;
+    @apply font-interface text-[21px] leading-[1.2];
   }
 
   .font-interface-md {
-    @apply font-interface text-[16px] leading-[1.2] font-normal;
+    @apply font-interface text-[16px] leading-[1.2];
   }
 
   .font-interface-sm {
-    @apply font-interface text-[12px] leading-[1.2] font-normal;
+    @apply font-interface text-[12px] leading-[1.2];
   }
 }
 
