@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Colors - References (Raw Palette) */
   --color-amber-700: #b58650;
@@ -46,98 +50,54 @@
   --grid-mobile-gap: 16px;
 }
 
-/* --- Modern Reset --- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-figure {
-  margin: 0;
-}
-
-body {
-  min-height: 100vh;
-  line-height: 1.5;
-  font-family: var(--font-interface);
-  background-color: var(--color-surface-100);
-  color: var(--color-text-primary);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* --- Typography Utilities --- */
-.font-display-lg {
-  font-family: var(--font-display);
-  font-size: 76px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-.font-display-md {
-  font-family: var(--font-display);
-  font-size: 36px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-.font-display-sm {
-  font-family: var(--font-display);
-  font-size: 28px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-.font-interface-lg {
-  font-family: var(--font-interface);
-  font-size: 21px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-.font-interface-md {
-  font-family: var(--font-interface);
-  font-size: 16px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-.font-interface-sm {
-  font-family: var(--font-interface);
-  font-size: 12px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-/* --- Layout Utilities --- */
-.container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: 0 24px;
-    max-width: 1440px;
+/* Base styles that align with our design system defaults */
+@layer base {
+  body {
+    @apply bg-surface-100 text-text-primary font-interface antialiased;
+    min-height: 100vh;
+    line-height: 1.5;
   }
 }
 
-.grid-layout {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-mobile-cols), 1fr);
-  gap: var(--grid-mobile-gap);
+/* Typography Utilities - Mapping tokens to Tailwind patterns */
+@layer utilities {
+  .font-display-lg {
+    @apply font-display text-[76px] leading-[1.2] font-normal;
+  }
+
+  .font-display-md {
+    @apply font-display text-[36px] leading-[1.2] font-normal;
+  }
+
+  .font-display-sm {
+    @apply font-display text-[28px] leading-[1.2] font-normal;
+  }
+
+  .font-interface-lg {
+    @apply font-interface text-[21px] leading-[1.2] font-normal;
+  }
+
+  .font-interface-md {
+    @apply font-interface text-[16px] leading-[1.2] font-normal;
+  }
+
+  .font-interface-sm {
+    @apply font-interface text-[12px] leading-[1.2] font-normal;
+  }
 }
 
-@media (min-width: 768px) {
+/* Layout Utilities - Keep the container and grid logic but using tailwind if possible */
+.container {
+  @apply w-full mx-auto px-4 max-w-[1440px] md:px-6;
+}
+
+.grid-layout {
+  @apply grid gap-mobile-gap md:gap-desktop-gap;
+  grid-template-columns: repeat(var(--grid-mobile-cols), 1fr);
+}
+
+@screen md {
   .grid-layout {
     grid-template-columns: repeat(var(--grid-desktop-cols), 1fr);
-    gap: var(--grid-desktop-gap);
   }
 }
