@@ -18,7 +18,9 @@
   --color-accent2: var(--color-stone-600);
   --color-surface-100: var(--color-slate-900);
   --color-surface-200: var(--color-slate-700);
-  --color-text-primary: var(--color-white);
+  --color-surface-white: var(--color-white);
+  --color-content-base: var(--color-white);
+  --color-content-inverse: var(--color-black);
 
   /* Dimensions - References */
   --dim-075: 6px;
@@ -53,7 +55,7 @@
 /* Base styles that align with our design system defaults */
 @layer base {
   body {
-    @apply bg-surface-100 text-text-primary font-interface antialiased;
+    @apply bg-surface-100 text-content-base font-interface antialiased;
     min-height: 100vh;
     line-height: 1.5;
   }

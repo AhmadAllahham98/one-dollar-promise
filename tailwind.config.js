@@ -13,9 +13,11 @@ export default {
         surface: {
           100: 'var(--color-surface-100)',
           200: 'var(--color-surface-200)',
+          white: 'var(--color-surface-white)',
         },
-        text: {
-          primary: 'var(--color-text-primary)',
+        content: {
+          base: 'var(--color-content-base)',
+          inverse: 'var(--color-content-inverse)',
         },
       },
       spacing: {
