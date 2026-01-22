@@ -18,12 +18,6 @@ export default {
   },
 };
 
-export const LoggedIn = {
-  args: {
-    user: {
-      name: 'Jane Doe',
-    },
-  },
-};
+export const LoggedIn = {};
 
 export const LoggedOut = {};
