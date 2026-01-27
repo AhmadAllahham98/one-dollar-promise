@@ -4,11 +4,10 @@ import logo from "../assets/Logo.svg";
 import { Button } from "./Button";
 
 export const Header = ({
+  user = null,
   size = "large",
   className = "",
-  onLogin,
   onLogout,
-  onCreateAccount,
   ...props
 }) => {
   const sizeClasses = {
@@ -18,11 +17,7 @@ export const Header = ({
 
   return (
     <header
-      className={[
-        "flex flex-row items-center justify-between w-full bg-surface-100",
-        sizeClasses[size],
-        className,
-      ].join(" ")}
+      className={`flex flex-row items-center justify-between w-full bg-surface-100 ${sizeClasses[size]} ${className}`}
       {...props}
     >
       <img
@@ -30,25 +25,35 @@ export const Header = ({
         alt="One Dollar Promise Logo"
         className="h-full w-auto object-contain shrink-0"
       />
-      <Button
-        size={size}
-        style="ghost"
-        onClick={onLogin}
-        label="Sign out"
-        className="ml-auto"
-      />
+      <div className="flex items-center gap-md ml-auto">
+        {user && (
+          <Button
+            size={size === "small" ? "small" : "large"}
+            style="ghost"
+            onClick={onLogout}
+            label="Sign out"
+          />
+        )}
+      </div>
     </header>
   );
 };
 
 Header.propTypes = {
   /**
-   * How large should the button be?
+   * Current user object, null if not logged in
+   */
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
+  /**
+   * Header size variant
    */
   size: PropTypes.oneOf(["small", "large"]),
-  onLogin: PropTypes.func.isRequired,
-  onLogout: PropTypes.func.isRequired,
-  onCreateAccount: PropTypes.func.isRequired,
+  /**
+   * Logout handler
+   */
+  onLogout: PropTypes.func,
   /**
    * Additional tailwind classes
    */
@@ -56,9 +61,8 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
+  user: null,
   size: "large",
   className: "",
-  onLogin: () => {},
-  onLogout: () => {},
-  onCreateAccount: () => {},
+  onLogout: undefined,
 };

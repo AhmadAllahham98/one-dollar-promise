@@ -39,7 +39,7 @@ const ArrowRightIcon = (props) => (
 );
 
 export default {
-  title: "Design/Button",
+  title: "Components/Button",
   component: Button,
   parameters: {
     layout: "centered",

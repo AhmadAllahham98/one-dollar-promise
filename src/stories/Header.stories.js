@@ -15,6 +15,9 @@ export default {
       options: ["small", "large"],
     },
   },
+  args: {
+    onLogout: fn(),
+  },
 };
 
 export const Large = {
@@ -29,6 +32,16 @@ export const Small = {
   },
 };
 
-export const LoggedIn = {};
+export const LoggedIn = {
+  args: {
+    user: {
+      name: "Jane Doe",
+    },
+  },
+};
 
-export const LoggedOut = {};
+export const LoggedOut = {
+  args: {
+    user: null,
+  },
+};
