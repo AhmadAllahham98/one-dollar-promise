@@ -1,58 +1,59 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 /**
  * Standard Input Field component.
  */
 export const InputField = ({
-    placeholder = 'Type here...',
-    value,
-    onChange,
-    type = 'text',
-    className = '',
-    ...props
+  placeholder = "Type here...",
+  value,
+  onChange,
+  type = "text",
+  className = "",
+  ...props
 }) => {
-    const baseStyles = 'w-full bg-surface-white text-content-inverse font-interface-md py-sm px-md rounded-lg border-2 border-surface-200 transition-all placeholder:text-black/40 focus:outline-none focus:border-2 focus:border-black/5';
+  const baseStyles =
+    "w-full bg-surface-white text-content-inverse font-interface-md py-sm px-md rounded-lg border-2 border-surface-200 transition-all placeholder:text-black/40 focus:outline-none focus:border-2 focus:border-black/5";
 
-    return (
-        <input
-            type={type}
-            className={`${baseStyles} ${className}`}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            {...props}
-        />
-    );
+  return (
+    <input
+      type={type}
+      className={`${baseStyles} ${className}`}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      {...props}
+    />
+  );
 };
 
 InputField.propTypes = {
-    /**
-     * Placeholder text
-     */
-    placeholder: PropTypes.string,
-    /**
-     * Input value
-     */
-    value: PropTypes.string,
-    /**
-     * Change handler
-     */
-    onChange: PropTypes.func,
-    /**
-     * Input type (text, password, email, etc.)
-     */
-    type: PropTypes.string,
-    /**
-     * Additional tailwind classes
-     */
-    className: PropTypes.string,
+  /**
+   * Placeholder text
+   */
+  placeholder: PropTypes.string,
+  /**
+   * Input value
+   */
+  value: PropTypes.string,
+  /**
+   * Change handler
+   */
+  onChange: PropTypes.func,
+  /**
+   * Input type (text, password, email, etc.)
+   */
+  type: PropTypes.string,
+  /**
+   * Additional tailwind classes
+   */
+  className: PropTypes.string,
 };
 
 InputField.defaultProps = {
-    placeholder: 'Type here...',
-    value: undefined,
-    onChange: undefined,
-    type: 'text',
-    className: '',
+  placeholder: "Type here...",
+  value: undefined,
+  onChange: undefined,
+  type: "text",
+  className: "",
 };

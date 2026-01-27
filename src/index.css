@@ -42,8 +42,8 @@
   --radius-sm: var(--dim-075);
 
   /* Typography Families */
-  --font-display: 'Playfair Display', serif;
-  --font-interface: 'Roboto', sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-interface: "Roboto", sans-serif;
 
   /* Grid Tokens */
   --grid-desktop-cols: 12;
