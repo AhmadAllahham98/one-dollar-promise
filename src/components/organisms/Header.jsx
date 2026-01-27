@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import logo from "../assets/Logo.svg";
-import { Button } from "./Button";
+import logo from "../../assets/Logo.svg";
+import { Button } from "../atoms/Button";
 
 export const Header = ({
   user = null,

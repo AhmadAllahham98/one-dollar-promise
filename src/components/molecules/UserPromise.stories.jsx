@@ -1,7 +1,7 @@
 import { UserPromise } from "./UserPromise";
 
 export default {
-  title: "Components/UserPromise",
+  title: "Molecules/UserPromise",
   component: UserPromise,
   parameters: {
     layout: "centered",

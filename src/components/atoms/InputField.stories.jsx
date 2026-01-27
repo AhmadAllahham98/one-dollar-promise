@@ -1,7 +1,7 @@
 import { InputField } from "./InputField";
 
 export default {
-  title: "Components/InputField",
+  title: "Atoms/InputField",
   component: InputField,
   parameters: {
     layout: "centered",

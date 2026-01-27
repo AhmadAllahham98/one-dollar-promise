@@ -3,7 +3,7 @@ import { fn } from "storybook/test";
 import { Header } from "./Header";
 
 export default {
-  title: "Components/Header",
+  title: "Organisms/Header",
   component: Header,
   parameters: {
     layout: "centered",

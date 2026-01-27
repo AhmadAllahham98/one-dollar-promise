@@ -1,7 +1,7 @@
 import { InputBox } from "./InputBox";
 
 export default {
-  title: "Components/InputBox",
+  title: "Atoms/InputBox",
   component: InputBox,
   parameters: {
     layout: "centered",

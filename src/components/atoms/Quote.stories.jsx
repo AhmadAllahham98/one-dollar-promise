@@ -1,7 +1,7 @@
 import { Quote } from "./Quote";
 
 export default {
-  title: "Components/Quote",
+  title: "Atoms/Quote",
   component: Quote,
   parameters: {
     layout: "centered",
