@@ -3,18 +3,29 @@ import { fn } from "storybook/test";
 import { Header } from "./Header";
 
 export default {
-  title: "Example/Header",
+  title: "Components/Header",
   component: Header,
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
   parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: "fullscreen",
+    layout: "centered",
   },
+  tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["small", "large"],
+    },
+  },
+};
+
+export const Large = {
   args: {
-    onLogin: fn(),
-    onLogout: fn(),
-    onCreateAccount: fn(),
+    size: "large",
+  },
+};
+
+export const Small = {
+  args: {
+    size: "small",
   },
 };
 
