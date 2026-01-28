@@ -45,7 +45,7 @@ export const AuthForm = ({
       />
       <Button
         label="Continue with Google"
-        style="outline"
+        style="solid"
         iconLeft={GoogleIcon}
         onClick={onGoogleAction}
       />
