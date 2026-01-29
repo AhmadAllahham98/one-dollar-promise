@@ -59,10 +59,3 @@ Header.propTypes = {
    */
   className: PropTypes.string,
 };
-
-Header.defaultProps = {
-  user: null,
-  size: "large",
-  className: "",
-  onLogout: undefined,
-};

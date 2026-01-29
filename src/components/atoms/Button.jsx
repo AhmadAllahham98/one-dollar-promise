@@ -85,13 +85,3 @@ Button.propTypes = {
    */
   className: PropTypes.string,
 };
-
-Button.defaultProps = {
-  size: "large",
-  style: "solid",
-  label: "Button",
-  iconLeft: null,
-  iconRight: null,
-  onClick: undefined,
-  className: "",
-};

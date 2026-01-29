@@ -97,13 +97,3 @@ InputBox.propTypes = {
    */
   className: PropTypes.string,
 };
-
-InputBox.defaultProps = {
-  size: "large",
-  placeholder: "Type here...",
-  value: undefined,
-  onChange: undefined,
-  rows: 4,
-  maxLength: 280,
-  className: "",
-};

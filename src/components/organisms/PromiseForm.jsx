@@ -78,9 +78,3 @@ PromiseForm.propTypes = {
    */
   className: PropTypes.string,
 };
-
-PromiseForm.defaultProps = {
-  size: "large",
-  onPromise: undefined,
-  className: "",
-};

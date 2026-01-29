@@ -49,11 +49,3 @@ InputField.propTypes = {
    */
   className: PropTypes.string,
 };
-
-InputField.defaultProps = {
-  placeholder: "Type here...",
-  value: undefined,
-  onChange: undefined,
-  type: "text",
-  className: "",
-};

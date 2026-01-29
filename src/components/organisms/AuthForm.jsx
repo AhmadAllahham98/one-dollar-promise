@@ -75,11 +75,3 @@ AuthForm.propTypes = {
    */
   className: PropTypes.string,
 };
-
-AuthForm.defaultProps = {
-  type: "login",
-  onLogin: undefined,
-  onSignup: undefined,
-  onGoogleAction: undefined,
-  className: "",
-};

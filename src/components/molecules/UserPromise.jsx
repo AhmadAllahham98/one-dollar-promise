@@ -5,7 +5,11 @@ import PropTypes from "prop-types";
  * User Promise component displays a user's avatar and their daily promise.
  * Built with Tailwind CSS.
  */
-export const UserPromise = ({ imageUrl, promiseText, ...props }) => {
+export const UserPromise = ({
+  imageUrl = "https://i.pravatar.cc/150?u=1",
+  promiseText = "I promise to keep my phone away during meals",
+  ...props
+}) => {
   return (
     <div
       className="inline-flex items-center p-xsm gap-xsm bg-surface-100 border-2 border-accent2 rounded-lg shadow-main"
@@ -34,9 +38,4 @@ UserPromise.propTypes = {
    * The promise text to display
    */
   promiseText: PropTypes.string.isRequired,
-};
-
-UserPromise.defaultProps = {
-  imageUrl: "https://i.pravatar.cc/150?u=1",
-  promiseText: "I promise to keep my phone away during meals",
 };

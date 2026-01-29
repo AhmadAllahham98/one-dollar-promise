@@ -112,11 +112,3 @@ PromiseDisplay.propTypes = {
    */
   className: PropTypes.string,
 };
-
-PromiseDisplay.defaultProps = {
-  size: "large",
-  promise: "",
-  onFail: undefined,
-  onSuccess: undefined,
-  className: "",
-};

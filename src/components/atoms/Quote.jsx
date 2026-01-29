@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 /**
  * Quote component for displaying prominent text or promises.
  */
-export const Quote = ({ size, children, className, ...props }) => {
+export const Quote = ({
+  size = "large",
+  children,
+  className = "",
+  ...props
+}) => {
   const sizeClasses = {
     large: "p-lg rounded-lg font-interface-lg",
     small: "p-md rounded-sm font-interface-md",
@@ -37,9 +42,4 @@ Quote.propTypes = {
    * Optional extra classes
    */
   className: PropTypes.string,
-};
-
-Quote.defaultProps = {
-  size: "large",
-  className: "",
 };
