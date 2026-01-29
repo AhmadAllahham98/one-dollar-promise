@@ -3,21 +3,10 @@ import PropTypes from "prop-types";
 import logo from "../../assets/Logo.svg";
 import { Button } from "../atoms/Button";
 
-export const Header = ({
-  user = null,
-  size = "large",
-  className = "",
-  onLogout,
-  ...props
-}) => {
-  const sizeClasses = {
-    large: "p-lg h-[84px]",
-    small: "p-md h-[64px]",
-  };
-
+export const Header = ({ user = null, className = "", onLogout, ...props }) => {
   return (
     <header
-      className={`flex flex-row items-center justify-between w-full bg-surface-100 ${sizeClasses[size]} ${className}`}
+      className={`flex flex-row items-center justify-between w-full bg-surface-100 p-md h-[64px] md:p-lg md:h-[84px] ${className}`}
       {...props}
     >
       <img
@@ -28,7 +17,17 @@ export const Header = ({
       <div className="flex items-center gap-md ml-auto">
         {user && (
           <Button
-            size={size === "small" ? "small" : "large"}
+            size="small"
+            className="md:hidden"
+            style="ghost"
+            onClick={onLogout}
+            label="Sign out"
+          />
+        )}
+        {user && (
+          <Button
+            size="large"
+            className="hidden md:inline-flex"
             style="ghost"
             onClick={onLogout}
             label="Sign out"
@@ -46,10 +45,6 @@ Header.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  /**
-   * Header size variant
-   */
-  size: PropTypes.oneOf(["small", "large"]),
   /**
    * Logout handler
    */

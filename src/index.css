@@ -48,8 +48,16 @@
   /* Grid Tokens */
   --grid-desktop-cols: 12;
   --grid-desktop-gap: 24px;
+  --grid-desktop-margin: 24px;
   --grid-mobile-cols: 4;
   --grid-mobile-gap: 16px;
+  --grid-mobile-margin: 16px;
+
+  /* Page Padding Semantics */
+  --page-pt-desktop: var(--spacing-xlg); /* 56px */
+  --page-px-desktop: var(--spacing-lg); /* 24px */
+  --page-pt-mobile: var(--spacing-lg); /* 24px */
+  --page-px-mobile: var(--spacing-md); /* 16px */
 }
 
 /* Base styles that align with our design system defaults */
@@ -88,18 +96,38 @@
   }
 }
 
-/* Layout Utilities - Keep the container and grid logic but using tailwind if possible */
-.container {
-  @apply w-full mx-auto px-4 max-w-[1440px] md:px-6;
-}
-
-.grid-layout {
-  @apply grid gap-mobile-gap md:gap-desktop-gap;
-  grid-template-columns: repeat(var(--grid-mobile-cols), 1fr);
+/* Layout Utilities */
+.page-body {
+  @apply flex flex-col items-center flex-1 w-full;
+  padding-top: var(--page-pt-mobile);
+  padding-left: var(--page-px-mobile);
+  padding-right: var(--page-px-mobile);
+  padding-bottom: var(--page-px-mobile);
 }
 
 @screen md {
-  .grid-layout {
+  .page-body {
+    padding-top: var(--page-pt-desktop);
+    padding-left: var(--page-px-desktop);
+    padding-right: var(--page-px-desktop);
+    padding-bottom: var(--page-px-desktop);
+  }
+}
+
+.grid-container {
+  @apply w-full mx-auto max-w-[1440px];
+  display: grid;
+  grid-template-columns: repeat(var(--grid-mobile-cols), 1fr);
+  gap: var(--grid-mobile-gap);
+  padding-left: var(--grid-mobile-margin);
+  padding-right: var(--grid-mobile-margin);
+}
+
+@screen md {
+  .grid-container {
     grid-template-columns: repeat(var(--grid-desktop-cols), 1fr);
+    gap: var(--grid-desktop-gap);
+    padding-left: var(--grid-desktop-margin);
+    padding-right: var(--grid-desktop-margin);
   }
 }

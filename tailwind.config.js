@@ -1,46 +1,49 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: 'var(--color-primary)',
-        accent: 'var(--color-accent)',
-        accent2: 'var(--color-accent2)',
+        primary: "var(--color-primary)",
+        accent: "var(--color-accent)",
+        accent2: "var(--color-accent2)",
         surface: {
-          100: 'var(--color-surface-100)',
-          200: 'var(--color-surface-200)',
-          white: 'var(--color-surface-white)',
+          100: "var(--color-surface-100)",
+          200: "var(--color-surface-200)",
+          white: "var(--color-surface-white)",
         },
         content: {
-          base: 'var(--color-content-base)',
-          inverse: 'var(--color-content-inverse)',
+          base: "var(--color-content-base)",
+          inverse: "var(--color-content-inverse)",
         },
       },
       spacing: {
-        xsm: 'var(--spacing-xsm)',
-        sm: 'var(--spacing-sm)',
-        md: 'var(--spacing-md)',
-        lg: 'var(--spacing-lg)',
-        xlg: 'var(--spacing-xlg)',
-        'mobile-gap': 'var(--grid-mobile-gap)',
-        'desktop-gap': 'var(--grid-desktop-gap)',
+        xsm: "var(--spacing-xsm)",
+        sm: "var(--spacing-sm)",
+        md: "var(--spacing-md)",
+        lg: "var(--spacing-lg)",
+        xlg: "var(--spacing-xlg)",
+        "mobile-gap": "var(--grid-mobile-gap)",
+        "desktop-gap": "var(--grid-desktop-gap)",
+        "page-pt-desktop": "var(--page-pt-desktop)",
+        "page-px-desktop": "var(--page-px-desktop)",
+        "page-pt-mobile": "var(--page-pt-mobile)",
+        "page-px-mobile": "var(--page-px-mobile)",
+        "grid-margin-desktop": "var(--grid-desktop-margin)",
+        "grid-margin-mobile": "var(--grid-mobile-margin)",
       },
       borderRadius: {
-        sm: 'var(--radius-sm)',
-        lg: 'var(--radius-lg)',
+        sm: "var(--radius-sm)",
+        lg: "var(--radius-lg)",
       },
       fontFamily: {
-        display: ['var(--font-display)', 'serif'],
-        interface: ['var(--font-interface)', 'sans-serif'],
+        display: ["var(--font-display)", "serif"],
+        interface: ["var(--font-interface)", "sans-serif"],
       },
       boxShadow: {
-        main: '0px 0px 16px 0px rgba(0, 0, 0, 0.25)',
+        main: "0px 0px 16px 0px rgba(0, 0, 0, 0.25)",
       },
     },
   },
   plugins: [],
-}
+};
