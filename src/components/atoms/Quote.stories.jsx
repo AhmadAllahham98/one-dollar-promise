@@ -1,3 +1,4 @@
+import React from "react";
 import { Quote } from "./Quote";
 
 export default {
@@ -7,24 +8,16 @@ export default {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    size: {
-      control: { type: "select" },
-      options: ["small", "large"],
-    },
-  },
+  argTypes: {},
 };
 
-export const Large = {
-  args: {
-    size: "large",
-    children: "I promise to keep my phone away during meals",
-  },
-};
+const Template = (args) => (
+  <div className="w-[320px] md:w-[600px] p-4 bg-surface-100 border border-dashed border-gray-500">
+    <Quote {...args} />
+  </div>
+);
 
-export const Small = {
-  args: {
-    size: "small",
-    children: "I promise to keep my phone away during meals",
-  },
+export const Default = Template.bind({});
+Default.args = {
+  children: "I promise to keep my phone away during meals",
 };

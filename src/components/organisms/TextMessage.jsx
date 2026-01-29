@@ -6,16 +6,14 @@ import PropTypes from "prop-types";
  * Adheres to the design system's typography and spacing tokens.
  */
 export const TextMessage = ({
-  size = "large",
   title = "Awesome.",
   message = "You get your $1 pledge back. Keep it up!",
   className = "",
   ...props
 }) => {
-  const titleStyle = size === "large" ? "font-display-md" : "font-display-sm";
-  const messageStyle =
-    size === "large" ? "font-interface-md" : "font-interface-sm";
-  const sectionGap = size === "large" ? "gap-y-lg" : "gap-y-md";
+  const titleStyle = "font-display-sm md:font-display-md";
+  const messageStyle = "font-interface-sm md:font-interface-md";
+  const sectionGap = "gap-y-md md:gap-y-lg";
 
   return (
     <div
@@ -33,10 +31,6 @@ export const TextMessage = ({
 };
 
 TextMessage.propTypes = {
-  /**
-   * The size variant of the display
-   */
-  size: PropTypes.oneOf(["small", "large"]),
   /**
    * The title to display
    */

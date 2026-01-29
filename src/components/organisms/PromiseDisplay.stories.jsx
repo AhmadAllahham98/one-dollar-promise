@@ -1,3 +1,4 @@
+import React from "react";
 import { PromiseDisplay } from "./PromiseDisplay";
 
 export default {
@@ -7,41 +8,32 @@ export default {
     layout: "centered",
   },
   argTypes: {
-    size: {
-      control: { type: "select" },
-      options: ["small", "large"],
-    },
     onFail: { action: "failed" },
     onSuccess: { action: "succeeded" },
+    promiseActionable: { control: "boolean" },
   },
 };
 
 const Template = (args) => (
-  <div className="w-[800px] p-10 bg-surface-100 flex justify-center">
+  <div className="w-[320px] md:w-[800px] p-4 md:p-10 bg-surface-100 flex justify-center border border-dashed border-gray-500">
     <PromiseDisplay {...args} />
   </div>
 );
 
-export const ActiveLarge = Template.bind({});
-ActiveLarge.args = {
-  size: "large",
+export const Actionable = Template.bind({});
+Actionable.args = {
   promise: "I will drink 3 liters of water today and finish the React project.",
+  promiseActionable: true,
 };
 
-export const ActiveSmall = Template.bind({});
-ActiveSmall.args = {
-  size: "small",
-  promise: "Write 500 words of my blog post.",
+export const NonActionable = Template.bind({});
+NonActionable.args = {
+  promise: "I will drink 3 liters of water today and finish the React project.",
+  promiseActionable: false,
 };
 
-export const EmptyLarge = Template.bind({});
-EmptyLarge.args = {
-  size: "large",
-  promise: "",
-};
-
-export const EmptySmall = Template.bind({});
-EmptySmall.args = {
-  size: "small",
-  promise: "",
+export const Default = Template.bind({});
+Default.args = {
+  promise: "No promise set for today.",
+  promiseActionable: false,
 };

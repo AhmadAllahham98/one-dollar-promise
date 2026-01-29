@@ -13,7 +13,7 @@ export const InputField = ({
   ...props
 }) => {
   const baseStyles =
-    "w-full bg-surface-white text-content-inverse font-interface-md py-sm px-md rounded-lg border-2 border-surface-200 transition-all placeholder:text-black/40 focus:outline-none focus:border-2 focus:border-black/5";
+    "w-full bg-surface-white text-content-inverse font-interface-sm md:font-interface-md py-xsm px-sm md:py-sm md:px-md rounded-sm md:rounded-lg border-2 border-surface-200 transition-all placeholder:text-black/40 focus:outline-none focus:border-2 focus:border-black/5";
 
   return (
     <input

@@ -1,3 +1,4 @@
+import React from "react";
 import { PromiseForm } from "./PromiseForm";
 
 export default {
@@ -7,26 +8,15 @@ export default {
     layout: "centered",
   },
   argTypes: {
-    size: {
-      control: { type: "select" },
-      options: ["small", "large"],
-    },
     onPromise: { action: "promised" },
   },
 };
 
 const Template = (args) => (
-  <div className="w-[800px] p-10 bg-surface-100">
+  <div className="w-[320px] md:w-[800px] p-4 md:p-10 bg-surface-100 border border-dashed border-gray-500">
     <PromiseForm {...args} />
   </div>
 );
 
-export const Large = Template.bind({});
-Large.args = {
-  size: "large",
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: "small",
-};
+export const Default = Template.bind({});
+Default.args = {};

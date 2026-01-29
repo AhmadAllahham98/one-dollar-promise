@@ -9,19 +9,18 @@ import ThumbsUp from "../../assets/ThumbUp.svg";
  * PromiseDisplay component for displaying a promise and recording the outcome.
  */
 export const PromiseDisplay = ({
-  size = "large",
-  promise = "",
+  promise = "No promise set for today.",
+  promiseActionable = false,
   onFail,
   onSuccess,
   className = "",
   ...props
 }) => {
-  const headingStyle = size === "large" ? "font-display-md" : "font-display-sm";
-  const interfaceStyle =
-    size === "large" ? "font-interface-md" : "font-interface-sm";
-  const buttonsGap = size === "large" ? "gap-x-md" : "gap-x-sm";
-  const sectionGap = size === "large" ? "gap-y-lg" : "gap-y-md";
-  const subsectionGap = size === "large" ? "gap-y-md" : "gap-y-xsm";
+  const headingStyle = "font-display-sm md:font-display-md";
+  const interfaceStyle = "font-interface-sm md:font-interface-md";
+  const buttonsGap = "gap-x-sm md:gap-x-md";
+  const sectionGap = "gap-y-md md:gap-y-lg";
+  const subsectionGap = "gap-y-xsm md:gap-y-md";
 
   // Wrapper for the Star Icon to be used as a component in Button
   const ThumbsDownIcon = (props) => (
@@ -42,15 +41,13 @@ export const PromiseDisplay = ({
         >
           Your $1 Promise is:
         </span>
-        <Quote size={size} className="w-full">
-          {promise || "No promise set for today."}
-        </Quote>
+        <Quote className="w-full">{promise}</Quote>
       </div>
 
       <div className="w-full h-[1px] bg-surface-200" />
 
       <div className={`flex flex-col items-center w-full ${subsectionGap}`}>
-        {promise ? (
+        {promiseActionable ? (
           <>
             <span
               className={`${interfaceStyle} w-full text-center text-content-base`}
@@ -92,13 +89,13 @@ export const PromiseDisplay = ({
 
 PromiseDisplay.propTypes = {
   /**
-   * The size variant of the display
-   */
-  size: PropTypes.oneOf(["small", "large"]),
-  /**
    * The promise to display
    */
   promise: PropTypes.string,
+  /**
+   * Whether the promise can be acted upon (buttons shown)
+   */
+  promiseActionable: PropTypes.bool,
   /**
    * Callback when "Fail" is clicked
    */

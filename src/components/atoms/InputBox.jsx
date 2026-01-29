@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
  * Standard Input Box (Textarea) component with character limit and flex layout.
  */
 export const InputBox = ({
-  size = "large",
   placeholder = "Type here...",
   value = "",
   onChange,
@@ -35,20 +34,17 @@ export const InputBox = ({
   const containerBase =
     "flex flex-col bg-surface-white border-2 border-surface-200 transition-all focus-within:border-black/5";
 
-  const sizeStyles = {
-    large: "py-sm px-md rounded-lg gap-y-xsm",
-    small: "py-xsm px-sm rounded-sm gap-y-1",
-  };
+  const responsiveStyles =
+    "py-xsm px-sm rounded-sm gap-y-1 md:py-sm md:px-md md:rounded-lg md:gap-y-xsm";
 
   const textareaStyles =
     "w-full bg-transparent text-content-inverse border-none focus:outline-none focus:ring-0 resize-none placeholder:text-black/40";
 
-  const textFont = size === "large" ? "font-interface-md" : "font-interface-sm";
-  const counterFont =
-    size === "large" ? "font-interface-md" : "font-interface-sm";
+  const textFont = "font-interface-sm md:font-interface-md";
+  const counterFont = "font-interface-sm md:font-interface-md";
 
   return (
-    <div className={`${containerBase} ${sizeStyles[size]} ${className}`}>
+    <div className={`${containerBase} ${responsiveStyles} ${className}`}>
       <textarea
         rows={rows}
         maxLength={maxLength}
@@ -68,10 +64,6 @@ export const InputBox = ({
 };
 
 InputBox.propTypes = {
-  /**
-   * How large should the input box be?
-   */
-  size: PropTypes.oneOf(["small", "large"]),
   /**
    * Placeholder text
    */

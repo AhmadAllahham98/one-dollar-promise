@@ -4,22 +4,15 @@ import PropTypes from "prop-types";
 /**
  * Quote component for displaying prominent text or promises.
  */
-export const Quote = ({
-  size = "large",
-  children,
-  className = "",
-  ...props
-}) => {
-  const sizeClasses = {
-    large: "p-lg rounded-lg font-interface-lg",
-    small: "p-md rounded-sm font-interface-md",
-  };
+export const Quote = ({ children, className = "", ...props }) => {
+  const responsiveStyles =
+    "p-md rounded-sm font-interface-md md:p-lg md:rounded-lg md:font-interface-lg";
 
   return (
     <div
       className={[
         "bg-accent2 text-content-base text-center italic font-regular",
-        sizeClasses[size],
+        responsiveStyles,
         className,
       ].join(" ")}
       {...props}
@@ -30,10 +23,6 @@ export const Quote = ({
 };
 
 Quote.propTypes = {
-  /**
-   * How large should the quote be?
-   */
-  size: PropTypes.oneOf(["small", "large"]),
   /**
    * Quote content
    */

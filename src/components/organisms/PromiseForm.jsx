@@ -7,20 +7,12 @@ import StarIconUrl from "../../assets/StarIcon.svg";
 /**
  * PromiseForm component for creating new promises.
  */
-export const PromiseForm = ({
-  size = "large",
-  onPromise,
-  className = "",
-  ...props
-}) => {
+export const PromiseForm = ({ onPromise, className = "", ...props }) => {
   const [promise, setPromise] = useState("");
 
-  const sizeClasses = {
-    large: "gap-y-lg",
-    small: "gap-y-md",
-  };
-
-  const headingStyle = size === "large" ? "font-display-md" : "font-display-sm";
+  const sectionGap = "gap-y-md md:gap-y-lg";
+  const headingStyle = "font-display-sm md:font-display-md";
+  const inputGap = "gap-y-xsm md:gap-y-md";
 
   // Wrapper for the Star Icon to be used as a component in Button
   const StarIcon = (props) => <img src={StarIconUrl} alt="Star" {...props} />;
@@ -34,7 +26,7 @@ export const PromiseForm = ({
 
   return (
     <form
-      className={`flex flex-col items-center w-full max-w-[684px] ${sizeClasses[size]} ${className}`}
+      className={`flex flex-col items-center w-full max-w-[684px] ${sectionGap} ${className}`}
       onSubmit={handleSubmit}
       {...props}
     >
@@ -42,11 +34,8 @@ export const PromiseForm = ({
         What's your promise for today?
       </span>
       <div className="w-full h-[1px] bg-surface-200" />
-      <div
-        className={`flex flex-col items-center w-full ${size === "large" ? "gap-y-md" : "gap-y-xsm"}`}
-      >
+      <div className={`flex flex-col items-center w-full ${inputGap}`}>
         <InputBox
-          size={size}
           placeholder="Promise"
           value={promise}
           className="w-full"
@@ -65,10 +54,6 @@ export const PromiseForm = ({
 };
 
 PromiseForm.propTypes = {
-  /**
-   * The size variant of the form
-   */
-  size: PropTypes.oneOf(["small", "large"]),
   /**
    * Callback when the promise is submitted
    */
