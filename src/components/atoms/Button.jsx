@@ -15,7 +15,7 @@ export const Button = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center gap-xsm font-bold transition-all cursor-pointer";
+    "inline-flex items-center justify-between gap-xsm font-bold transition-all cursor-pointer";
 
   const sizeStyles = {
     large: "py-sm px-md rounded-lg font-interface-md",
@@ -38,9 +38,19 @@ export const Button = ({
       onClick={onClick}
       {...props}
     >
-      {IconLeft && <IconLeft className={iconSize} />}
-      {label}
-      {IconRight && <IconRight className={iconSize} />}
+      {Boolean(IconLeft || IconRight) &&
+        (IconLeft ? (
+          <IconLeft className={`${iconSize} shrink-0`} />
+        ) : (
+          <div className={`${iconSize} shrink-0`} />
+        ))}
+      <span className="flex-1 text-center">{label}</span>
+      {Boolean(IconLeft || IconRight) &&
+        (IconRight ? (
+          <IconRight className={`${iconSize} shrink-0`} />
+        ) : (
+          <div className={`${iconSize} shrink-0`} />
+        ))}
     </button>
   );
 };

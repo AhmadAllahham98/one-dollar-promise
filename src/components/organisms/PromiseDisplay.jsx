@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "../atoms/Button";
 import { Quote } from "../atoms/Quote";
+import ThumbsDown from "../../assets/ThumbDown.svg";
+import ThumbsUp from "../../assets/ThumbUp.svg";
 
 /**
  * PromiseDisplay component for displaying a promise and recording the outcome.
@@ -14,56 +16,68 @@ export const PromiseDisplay = ({
   className = "",
   ...props
 }) => {
-  const sizeClasses = {
-    large: "gap-y-lg",
-    small: "gap-y-md",
-  };
-
   const headingStyle = size === "large" ? "font-display-md" : "font-display-sm";
   const interfaceStyle =
     size === "large" ? "font-interface-md" : "font-interface-sm";
-  const buttonGap = size === "large" ? "gap-x-md" : "gap-x-sm";
-  const bottomGap = size === "large" ? "gap-y-md" : "gap-y-xsm";
+  const buttonsGap = size === "large" ? "gap-x-md" : "gap-x-sm";
+  const sectionGap = size === "large" ? "gap-y-lg" : "gap-y-md";
+  const subsectionGap = size === "large" ? "gap-y-md" : "gap-y-xsm";
+
+  // Wrapper for the Star Icon to be used as a component in Button
+  const ThumbsDownIcon = (props) => (
+    <img src={ThumbsDown} alt="Thumbs Down" {...props} />
+  );
+  const ThumbsUpIcon = (props) => (
+    <img src={ThumbsUp} alt="Thumbs Up" {...props} />
+  );
 
   return (
     <div
-      className={`flex flex-col items-center w-full max-w-[684px] ${sizeClasses[size]} ${className}`}
+      className={`flex flex-col items-center w-full max-w-[684px] ${sectionGap} ${className}`}
       {...props}
     >
-      <div className="flex flex-col items-center w-full gap-y-md">
+      <div className={`flex flex-col items-center w-full ${subsectionGap}`}>
         <span
           className={`${headingStyle} w-full text-center text-content-base`}
         >
           Your $1 Promise is:
         </span>
-        <Quote size={size}>{promise || "No promise set for today."}</Quote>
+        <Quote size={size} className="w-full">
+          {promise || "No promise set for today."}
+        </Quote>
       </div>
 
       <div className="w-full h-[1px] bg-surface-200" />
 
-      <div className={`flex flex-col items-center w-full ${bottomGap}`}>
-        <span
-          className={`${interfaceStyle} w-full text-center text-content-base`}
-        >
-          How did it go?
-        </span>
+      <div className={`flex flex-col items-center w-full ${subsectionGap}`}>
         {promise ? (
-          <div className={`flex flex-row w-full items-center ${buttonGap}`}>
-            <Button
-              size={size}
-              style="outline"
-              label="Fail (-$1)"
-              onClick={onFail}
-              className="flex-1"
-            />
-            <Button
-              size={size}
-              style="solid"
-              label="Success (+$1)"
-              onClick={onSuccess}
-              className="flex-1"
-            />
-          </div>
+          <>
+            <span
+              className={`${interfaceStyle} w-full text-center text-content-base`}
+            >
+              How did it go?
+            </span>
+            <div
+              className={`flex flex-row w-full items-center justify-center ${buttonsGap}`}
+            >
+              <Button
+                size="large"
+                style="solid"
+                label="Fail (-$1)"
+                onClick={onFail}
+                className="flex-1 max-w-[212px]"
+                iconRight={ThumbsDownIcon}
+              />
+              <Button
+                size="large"
+                style="solid"
+                label="Success (+$1)"
+                onClick={onSuccess}
+                className="flex-1 max-w-[212px]"
+                iconRight={ThumbsUpIcon}
+              />
+            </div>
+          </>
         ) : (
           <span
             className={`${interfaceStyle} w-full text-center text-content-base opacity-60`}
