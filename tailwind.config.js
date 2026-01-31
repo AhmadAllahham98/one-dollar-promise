@@ -43,6 +43,32 @@ export default {
       boxShadow: {
         main: "0px 0px 16px 0px rgba(0, 0, 0, 0.25)",
       },
+      keyframes: {
+        "promise-float": {
+          "0%": {
+            opacity: "0",
+            transform: "translate(-50%, -50%) scale(0.8)",
+          },
+          "2.5%": {
+            // 0.5s of 20s cycle
+            opacity: "1",
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "17.5%": {
+            // 3.5s total (3s stay)
+            opacity: "1",
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "20%, 100%": {
+            // 4.0s total (0.5s fade out)
+            opacity: "0",
+            transform: "translate(-50%, -50%) scale(0.8)",
+          },
+        },
+      },
+      animation: {
+        "promise-float": "promise-float 20s linear infinite backwards",
+      },
     },
   },
   plugins: [],
