@@ -8,14 +8,43 @@ import GoogleLogoUrl from "../../assets/GoogleLogo.svg";
  * Organism representing a Sign Up/Login Authentication Form.
  */
 export const SignUpAuthForm = ({
-  type = "login",
+  initialMode = "login",
   onLogin,
   onSignup,
   onGoogleAction,
   className = "",
   ...props
 }) => {
-  const isLogin = type === "login";
+  const [mode, setMode] = React.useState(initialMode);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+
+  const isLogin = mode === "login";
+
+  // Internal handler for Login Button
+  const handleLogin = (e) => {
+    e?.preventDefault();
+    if (!isLogin) {
+      setMode("login");
+    } else {
+      if (onLogin) {
+        onLogin({ email, password });
+      }
+    }
+  };
+
+  // Internal handler for Signup Button
+  const handleSignup = (e) => {
+    e?.preventDefault();
+    if (isLogin) {
+      setMode("signup");
+    } else {
+      if (onSignup) {
+        onSignup({ email, password, confirmPassword });
+      }
+    }
+  };
 
   // Wrapper for the Google Icon to be used as a component in Button
   const GoogleIcon = (props) => (
@@ -28,20 +57,42 @@ export const SignUpAuthForm = ({
       onSubmit={(e) => e.preventDefault()}
       {...props}
     >
-      <InputField type="email" placeholder="Email Address" />
-      <InputField type="password" placeholder="Password" />
-      {!isLogin && (
-        <InputField type="password" placeholder="Confirm Password" />
-      )}
+      <InputField
+        type="email"
+        placeholder="Email Address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <InputField
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <div
+        className={`grid transition-all duration-500 ease-out ${
+          isLogin ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <InputField
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="mb-xsm"
+          />
+        </div>
+      </div>
       <Button
         label="Log In"
         style={isLogin ? "solid" : "outline"}
-        onClick={onLogin}
+        onClick={handleLogin}
       />
       <Button
         label="Sign Up"
         style={isLogin ? "outline" : "solid"}
-        onClick={onSignup}
+        onClick={handleSignup}
       />
       <Button
         label="Continue with Google"
@@ -55,9 +106,9 @@ export const SignUpAuthForm = ({
 
 SignUpAuthForm.propTypes = {
   /**
-   * The mode of the form
+   * The initial mode of the form
    */
-  type: PropTypes.oneOf(["login", "signup"]),
+  initialMode: PropTypes.oneOf(["login", "signup"]),
   /**
    * Login handler
    */
