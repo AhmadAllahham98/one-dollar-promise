@@ -132,3 +132,25 @@
     padding-right: var(--grid-desktop-margin);
   }
 }
+
+@keyframes breath {
+  0%,
+  100% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 120% 120%;
+  }
+}
+
+.animate-breath {
+  background: radial-gradient(
+    circle at bottom left,
+    #2f3f45 0%,
+    var(--color-surface-100) 60%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  animation: breath 5s ease-in-out infinite;
+}
