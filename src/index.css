@@ -103,6 +103,7 @@
   padding-left: var(--page-px-mobile);
   padding-right: var(--page-px-mobile);
   padding-bottom: var(--page-px-mobile);
+  gap: var(--spacing-md);
 }
 
 @screen md {
@@ -111,6 +112,7 @@
     padding-left: var(--page-px-desktop);
     padding-right: var(--page-px-desktop);
     padding-bottom: var(--page-px-desktop);
+    gap: var(--spacing-lg);
   }
 }
 

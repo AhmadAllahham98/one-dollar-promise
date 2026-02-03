@@ -98,18 +98,20 @@ export const UserPromiseDisplay = ({
       const mRow = orderIndex % 4;
       const mZoneHeight = 100 / 4;
       const mTop = (mRow + 0.5) * mZoneHeight; // Perfectly centered in the row
-      const mLeft = 50; // Centered horizontally in the single column
+      // Use pixel-based vertical positioning (bottom-up) to prevent sliding during height changes
+      const rowHeight = 80;
+      const desktopBottom =
+        row * rowHeight + (Math.random() * 0.4 + 0.3) * rowHeight;
 
-      // Safe bounds
-      const safeTop = Math.max(10, Math.min(90, top));
-      const safeLeft = Math.max(10, Math.min(90, left));
-      const safeMTop = Math.max(10, Math.min(90, mTop));
+      const mobileRowHeight = 50;
+      const mobileBottom = (mRow + 0.5) * mobileRowHeight;
+      const mLeft = 50; // Centered horizontally in the single column
 
       return {
         ...promise,
-        dTop: `${safeTop}%`,
-        dLeft: `${safeLeft}%`,
-        mTop: `${safeMTop}%`,
+        dBottom: `${desktopBottom}px`,
+        dLeft: `${left}%`,
+        mBottom: `${mobileBottom}px`,
         mLeft: `${mLeft}%`,
         delay: `${orderIndex * 2}s`,
         duration: "20s",
@@ -118,17 +120,19 @@ export const UserPromiseDisplay = ({
   }, [promises]);
 
   return (
-    <div className={`w-full h-[240px] relative bg-transparent ${className}`}>
+    <div
+      className={`w-full flex-1 overflow-hidden relative bg-transparent ${className}`}
+    >
       {animatedPromises.map((p, index) => (
         <div
           key={p.id || index}
-          className="absolute opacity-0 animate-promise-float pointer-events-none top-[var(--m-top)] left-[var(--m-left)] md:top-[var(--d-top)] md:left-[var(--d-left)]"
+          className="absolute opacity-0 animate-promise-float pointer-events-none bottom-[var(--m-bottom)] left-[var(--m-left)] md:bottom-[var(--d-bottom)] md:left-[var(--d-left)]"
           style={{
-            "--m-top": p.mTop,
+            "--m-bottom": p.mBottom,
             "--m-left": p.mLeft,
-            "--d-top": p.dTop,
+            "--d-bottom": p.dBottom,
             "--d-left": p.dLeft,
-            transform: "translate(-50%, -50%)",
+            transform: "translate(-50%, 50%)",
             animationDelay: p.delay,
             animationDuration: p.duration,
           }}
