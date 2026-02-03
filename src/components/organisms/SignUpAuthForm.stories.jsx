@@ -1,9 +1,9 @@
 import { fn } from "storybook/test";
-import { AuthForm } from "./AuthForm";
+import { SignUpAuthForm } from "./SignUpAuthForm";
 
 export default {
-  title: "Organisms/AuthForm",
-  component: AuthForm,
+  title: "Organisms/SignUpAuthForm",
+  component: SignUpAuthForm,
   parameters: {
     layout: "centered",
   },

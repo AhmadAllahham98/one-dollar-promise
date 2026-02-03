@@ -5,9 +5,9 @@ import { InputField } from "../atoms/InputField";
 import GoogleLogoUrl from "../../assets/GoogleLogo.svg";
 
 /**
- * Organism representing an Authentication Form (Login/Signup).
+ * Organism representing a Sign Up/Login Authentication Form.
  */
-export const AuthForm = ({
+export const SignUpAuthForm = ({
   type = "login",
   onLogin,
   onSignup,
@@ -53,7 +53,7 @@ export const AuthForm = ({
   );
 };
 
-AuthForm.propTypes = {
+SignUpAuthForm.propTypes = {
   /**
    * The mode of the form
    */
