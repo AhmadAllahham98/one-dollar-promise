@@ -115,7 +115,7 @@
 }
 
 .grid-container {
-  @apply w-full mx-auto max-w-[1440px];
+  @apply w-full mx-auto max-w-[375px];
   display: grid;
   grid-template-columns: repeat(var(--grid-mobile-cols), 1fr);
   gap: var(--grid-mobile-gap);
@@ -125,6 +125,7 @@
 
 @screen md {
   .grid-container {
+    max-width: 1440px;
     grid-template-columns: repeat(var(--grid-desktop-cols), 1fr);
     gap: var(--grid-desktop-gap);
     padding-left: var(--grid-desktop-margin);
