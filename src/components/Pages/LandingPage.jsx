@@ -1,6 +1,5 @@
 import React from "react";
 import { MainTemplate } from "../templates/MainTemplate";
-import { Header } from "../organisms/Header";
 import { SignUpAuthForm } from "../organisms/SignUpAuthForm";
 import { UserPromiseDisplay } from "../organisms/UserPromiseDisplay";
 
