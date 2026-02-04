@@ -8,7 +8,7 @@ export const LandingPage = () => {
   const responsiveSubtitleStyle = "font-interface-md md:font-interface-lg";
   return (
     <MainTemplate className="min-h-screen animate-breath">
-      <div className="flex flex-col items-center justify-center gap-y-md md:gap-y-lg max-w-[343px] md:max-w-[720px] backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-6">
+      <div className="flex flex-col items-center justify-center gap-y-md md:gap-y-lg max-w-[343px] md:max-w-[684px] backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-6">
         <h1 className={`text-center ${responsiveTitleStyle}`}>
           Promises that stick<span className="font-bold text-accent">.</span>
         </h1>

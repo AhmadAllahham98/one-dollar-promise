@@ -72,7 +72,7 @@
 /* Typography Utilities - Mapping tokens to Tailwind patterns */
 @layer utilities {
   .font-display-lg {
-    @apply font-display text-[76px] leading-[1.2];
+    @apply font-display text-[72px] leading-[1.2];
   }
 
   .font-display-md {
