@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Header } from "../organisms/Header";
+import { Footer } from "../organisms/Footer";
 
 /**
  * MainTemplate component providing the base layout structure.
@@ -17,6 +18,7 @@ export const MainTemplate = ({
     <div className={`min-h-screen flex flex-col ${className}`} {...props}>
       <Header user={user} onLogout={onLogout} />
       <main className="page-body">{children}</main>
+      <Footer />
     </div>
   );
 };
