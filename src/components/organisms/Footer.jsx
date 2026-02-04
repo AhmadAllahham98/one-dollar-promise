@@ -6,13 +6,15 @@ export const Footer = ({ className = "", ...props }) => {
 
   return (
     <footer
-      className={`w-full flex flex-row items-center justify-between p-md md:p-lg ${className}`}
+      className={`w-full flex flex-row items-center justify-center md:justify-between p-md md:p-lg ${className}`}
       {...props}
     >
-      <p className={`font-light ${responsiveTextStyle}`}>
+      <p
+        className={`hidden md:inline-flex font-light text-center ${responsiveTextStyle}`}
+      >
         © 2026 One Dollar Promise
       </p>
-      <p className={responsiveTextStyle}>
+      <p className={`text-center ${responsiveTextStyle}`}>
         All proceeds go to supporting the people of{" "}
         <span className="text-accent font-bold">Gaza</span>
       </p>
