@@ -195,3 +195,74 @@
   );
   pointer-events: none;
 }
+@keyframes promise-float {
+  /* Mobile Default (10% active) */
+  0% {
+    opacity: 0;
+    filter: var(--depth-blur);
+    transform: translate(-50%, 25px);
+  }
+  2% {
+    opacity: var(--depth-opacity);
+    filter: var(--depth-blur);
+    transform: translate(-50%, 0);
+  }
+  8% {
+    opacity: var(--depth-opacity);
+    filter: var(--depth-blur);
+    transform: translate(-50%, 0);
+  }
+  10% {
+    opacity: 0;
+    filter: var(--depth-blur);
+    transform: translate(-50%, -25px);
+  }
+  10.01%,
+  100% {
+    opacity: 0;
+    filter: blur(0);
+    transform: translate(-50%, 100vh);
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes promise-float {
+    /* Desktop Override (40% active) */
+    0% {
+      opacity: 0;
+      filter: var(--depth-blur);
+      transform: translate(-50%, 30px);
+    }
+    5% {
+      opacity: var(--depth-opacity);
+      filter: var(--depth-blur);
+      transform: translate(-50%, 0);
+    }
+    35% {
+      opacity: var(--depth-opacity);
+      filter: var(--depth-blur);
+      transform: translate(-50%, 0);
+    }
+    40% {
+      opacity: 0;
+      filter: var(--depth-blur);
+      transform: translate(-50%, -30px);
+    }
+    40.01%,
+    100% {
+      opacity: 0;
+      filter: blur(0);
+      transform: translate(-50%, 100vh);
+      pointer-events: none;
+    }
+  }
+}
+
+.animate-promise-float {
+  animation-name: promise-float;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  opacity: 0;
+}

@@ -58,89 +58,103 @@ const DEFAULT_PROMISES = [
 export const UserPromiseDisplay = ({
   promises = DEFAULT_PROMISES,
   className = "",
+  safeWidthPx = 720,
+  maxReachPx = 900,
+  minReachPy = 50,
+  maxReachPy = 800,
 }) => {
   const animatedPromises = useMemo(() => {
-    // Shuffle logic
-    const shuffledIndices = Array.from(
-      { length: promises.length },
-      (_, i) => i,
+    // 1. Shuffle content order
+    const shuffled = [...promises].sort(() => Math.random() - 0.5);
+    // 2. Create unique shuffled row indices to prevent vertical overlap
+    const poolSize = promises.length;
+    const rowIndices = Array.from({ length: poolSize }, (_, i) => i).sort(
+      () => Math.random() - 0.5,
     );
-    for (let i = shuffledIndices.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledIndices[i], shuffledIndices[j]] = [
-        shuffledIndices[j],
-        shuffledIndices[i],
-      ];
-    }
 
-    return promises.map((promise, index) => {
-      const orderIndex = shuffledIndices[index];
+    return shuffled.map((promise, index) => {
+      // PERSISTENT POSITIONS
+      const side = Math.random() > 0.5 ? 1 : -1;
+      const minX = safeWidthPx / 2 + 60;
+      const maxX = maxReachPx;
+      const xOffset = side * (minX + Math.random() * (maxX - minX));
 
-      // Desktop grid logic
-      const zoneRows = 2;
-      const zoneCols = Math.ceil(promises.length / zoneRows);
-      const zoneWidth = 100 / zoneCols;
-
-      const row = Math.floor(index / zoneCols);
-      const col = index % zoneCols;
-
-      // Position calculations
-      const left = col * zoneWidth + (Math.random() * 0.4 + 0.3) * zoneWidth;
-      const rowHeight = 80;
-      const desktopBottom =
-        row * rowHeight + (Math.random() * 0.4 + 0.3) * rowHeight;
-
-      // Mobile logic
-      const mRow = orderIndex % 4;
-      const mobileRowHeight = 50;
-      const mobileBottom = (mRow + 0.5) * mobileRowHeight;
-      const mLeft = 50;
+      // Unique row logic using new vertical reach props
+      const rowHeight = (maxReachPy - minReachPy) / poolSize;
+      const rowIndex = rowIndices[index];
+      const yPos =
+        minReachPy + rowIndex * rowHeight + Math.random() * rowHeight * 0.3;
 
       /**
-       * DEPTH CALCULATIONS
-       * Distance from center (50%) determines the blur and scale.
+       * CONCURRENCY & LOOP CONTROL
+       * Rule: totalDuration = PoolSize * Gap.
+       * Rule: Visible concurrency = ActivePercentage * PoolSize.
        */
-      const distanceFromCenter = Math.abs(left - 50);
-      // Items at the very edge (50% away from center) get max blur/min scale
-      const blurAmount = (distanceFromCenter / 40).toFixed(2);
-      const scaleAmount = 1 - distanceFromCenter / 150;
-      // Slightly dim the ones at the very edges to enhance depth
-      const focusOpacity = 1 - distanceFromCenter / 200;
+
+      // DESKTOP: Slower movement, 4 concurrent visible.
+      // Keyframes are 40% active. 4 visible / 10 pool = 40%.
+      const gapD = 4; // New promise every 4s
+      const durationD = poolSize * gapD; // 40s total loop
+      const delayD = index * gapD;
+
+      // MOBILE: Snappy 1-at-a-time.
+      // Keyframes are 10% active. 1 visible / 10 pool = 10%.
+      const gapM = 5; // New promise every 5s
+      const durationM = poolSize * gapM; // 50s total loop
+      const delayM = index * gapM;
+
+      // DOFX
+      const dist = Math.abs(xOffset);
+      const blurAmount = Math.max(0, (dist - 400) / 600).toFixed(2);
+      const opacityFactor = Math.max(0.6, 1 - dist / 3000).toFixed(2);
 
       return {
         ...promise,
-        dBottom: `${desktopBottom}px`,
-        dLeft: `${left}%`,
-        mBottom: `${mobileBottom}px`,
-        mLeft: `${mLeft}%`,
-        delay: `${orderIndex * 2}s`,
-        duration: "20s",
-        depthStyles: {
-          filter: `blur(${blurAmount}px)`,
-          transform: `translate(-50%, 50%) scale(${scaleAmount})`,
-          opacity: focusOpacity,
-        },
+        xOffset: `${xOffset}px`,
+        yPos: `${yPos}px`,
+        delayD: `${delayD}s`,
+        delayM: `${delayM}s`,
+        durationD: `${durationD}s`,
+        durationM: `${durationM}s`,
+        blur: blurAmount,
+        opacity: opacityFactor,
       };
     });
-  }, [promises]);
+  }, [promises, safeWidthPx, maxReachPx, minReachPy, maxReachPy]);
 
   return (
     <div
-      className={`w-full flex-1 overflow-hidden md:overflow-visible relative bg-transparent ${className}`}
+      className={`absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] z-0 overflow-hidden pointer-events-none ${className}`}
     >
+      <style>{`
+        .promise-item {
+          animation-duration: var(--duration-m);
+          animation-delay: var(--delay-m);
+          bottom: 120px;
+          left: 50%;
+        }
+        @media (min-width: 768px) {
+          .promise-item {
+            animation-duration: var(--duration-d);
+            animation-delay: var(--delay-d);
+            bottom: var(--y-pos);
+            left: calc(50% + var(--x-offset));
+          }
+        }
+      `}</style>
       {animatedPromises.map((p, index) => (
         <div
           key={p.id || index}
-          className="absolute animate-promise-float pointer-events-none bottom-[var(--m-bottom)] left-[var(--m-left)] md:bottom-[var(--d-bottom)] md:left-[var(--d-left)]"
+          className="absolute animate-promise-float promise-item"
           style={{
-            "--m-bottom": p.mBottom,
-            "--m-left": p.mLeft,
-            "--d-bottom": p.dBottom,
-            "--d-left": p.dLeft,
-            animationDelay: p.delay,
-            animationDuration: p.duration,
-            // Apply the depth-of-field styles
-            ...p.depthStyles,
+            "--x-offset": p.xOffset,
+            "--y-pos": p.yPos,
+            "--depth-blur": `blur(${p.blur}px)`,
+            "--depth-opacity": p.opacity,
+            "--delay-d": p.delayD,
+            "--delay-m": p.delayM,
+            "--duration-d": p.durationD,
+            "--duration-m": p.durationM,
           }}
         >
           <UserPromise imageUrl={p.imageUrl} promiseText={p.promiseText} />
@@ -159,4 +173,8 @@ UserPromiseDisplay.propTypes = {
     }),
   ),
   className: PropTypes.string,
+  safeWidthPx: PropTypes.number,
+  maxReachPx: PropTypes.number,
+  minReachPy: PropTypes.number,
+  maxReachPy: PropTypes.number,
 };

@@ -13,6 +13,17 @@ const RESPONSIVE_SUBTITLE_STYLE = "font-interface-md md:font-interface-lg";
 export const LandingPage = () => {
   return (
     <MainTemplate className="animate-breath">
+      {/* 
+          The UserPromiseDisplay is now absolute-positioned inside the template body.
+          We pass 720 as the safeWidthPx to match the CTA card width + breathing room.
+       */}
+      <UserPromiseDisplay
+        safeWidthPx={840}
+        maxReachPx={800}
+        minReachPy={160}
+        maxReachPy={800}
+      />
+
       {/* Central CTA Card */}
       <section className="flex flex-col items-center justify-center gap-y-md md:gap-y-lg max-w-[343px] md:max-w-[684px] backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-6">
         <h1 className={`text-center ${RESPONSIVE_TITLE_STYLE}`}>
@@ -37,9 +48,6 @@ export const LandingPage = () => {
         {/* Auth Form Registration */}
         <SignUpAuthForm />
       </section>
-
-      {/* Background/Floating Decorations */}
-      <UserPromiseDisplay />
     </MainTemplate>
   );
 };
