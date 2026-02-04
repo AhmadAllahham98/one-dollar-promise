@@ -55,16 +55,12 @@ const DEFAULT_PROMISES = [
   },
 ];
 
-/**
- * UserPromiseDisplay organism displays a decorative, animated cloud of user promises.
- * Each promise fades in, stays for a moment, and fades out at a random position.
- */
 export const UserPromiseDisplay = ({
   promises = DEFAULT_PROMISES,
   className = "",
 }) => {
   const animatedPromises = useMemo(() => {
-    // Create an array of shuffled indices to randomize the appearance order
+    // Shuffle logic
     const shuffledIndices = Array.from(
       { length: promises.length },
       (_, i) => i,
@@ -78,34 +74,38 @@ export const UserPromiseDisplay = ({
     }
 
     return promises.map((promise, index) => {
-      // Use the shuffled index for the delay to randomize order
       const orderIndex = shuffledIndices[index];
 
-      // Desktop zones - Use original index so position is independent of appearance order (more organic cloud)
+      // Desktop grid logic
       const zoneRows = 2;
       const zoneCols = Math.ceil(promises.length / zoneRows);
       const zoneWidth = 100 / zoneCols;
-      const zoneHeight = 100 / zoneRows;
 
       const row = Math.floor(index / zoneCols);
       const col = index % zoneCols;
 
-      // Reduced jitter for desktop to prevent overlap between adjacent zones
-      const top = row * zoneHeight + (Math.random() * 0.4 + 0.3) * zoneHeight;
+      // Position calculations
       const left = col * zoneWidth + (Math.random() * 0.4 + 0.3) * zoneWidth;
-
-      // Mobile zones (1 col, 4 rows) - 2s stagger + 4 rows prevents loop overlap
-      const mRow = orderIndex % 4;
-      const mZoneHeight = 100 / 4;
-      const mTop = (mRow + 0.5) * mZoneHeight; // Perfectly centered in the row
-      // Use pixel-based vertical positioning (bottom-up) to prevent sliding during height changes
       const rowHeight = 80;
       const desktopBottom =
         row * rowHeight + (Math.random() * 0.4 + 0.3) * rowHeight;
 
+      // Mobile logic
+      const mRow = orderIndex % 4;
       const mobileRowHeight = 50;
       const mobileBottom = (mRow + 0.5) * mobileRowHeight;
-      const mLeft = 50; // Centered horizontally in the single column
+      const mLeft = 50;
+
+      /**
+       * DEPTH CALCULATIONS
+       * Distance from center (50%) determines the blur and scale.
+       */
+      const distanceFromCenter = Math.abs(left - 50);
+      // Items at the very edge (50% away from center) get max blur/min scale
+      const blurAmount = (distanceFromCenter / 40).toFixed(2);
+      const scaleAmount = 1 - distanceFromCenter / 150;
+      // Slightly dim the ones at the very edges to enhance depth
+      const focusOpacity = 1 - distanceFromCenter / 200;
 
       return {
         ...promise,
@@ -115,26 +115,32 @@ export const UserPromiseDisplay = ({
         mLeft: `${mLeft}%`,
         delay: `${orderIndex * 2}s`,
         duration: "20s",
+        depthStyles: {
+          filter: `blur(${blurAmount}px)`,
+          transform: `translate(-50%, 50%) scale(${scaleAmount})`,
+          opacity: focusOpacity,
+        },
       };
     });
   }, [promises]);
 
   return (
     <div
-      className={`w-full flex-1 overflow-hidden relative bg-transparent ${className}`}
+      className={`w-full flex-1 overflow-hidden md:overflow-visible relative bg-transparent ${className}`}
     >
       {animatedPromises.map((p, index) => (
         <div
           key={p.id || index}
-          className="absolute opacity-0 animate-promise-float pointer-events-none bottom-[var(--m-bottom)] left-[var(--m-left)] md:bottom-[var(--d-bottom)] md:left-[var(--d-left)]"
+          className="absolute animate-promise-float pointer-events-none bottom-[var(--m-bottom)] left-[var(--m-left)] md:bottom-[var(--d-bottom)] md:left-[var(--d-left)]"
           style={{
             "--m-bottom": p.mBottom,
             "--m-left": p.mLeft,
             "--d-bottom": p.dBottom,
             "--d-left": p.dLeft,
-            transform: "translate(-50%, 50%)",
             animationDelay: p.delay,
             animationDuration: p.duration,
+            // Apply the depth-of-field styles
+            ...p.depthStyles,
           }}
         >
           <UserPromise imageUrl={p.imageUrl} promiseText={p.promiseText} />
@@ -145,9 +151,6 @@ export const UserPromiseDisplay = ({
 };
 
 UserPromiseDisplay.propTypes = {
-  /**
-   * Array of promise objects containing id, imageUrl, and promiseText
-   */
   promises: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -155,8 +158,5 @@ UserPromiseDisplay.propTypes = {
       promiseText: PropTypes.string.isRequired,
     }),
   ),
-  /**
-   * Optional additional class names for the container
-   */
   className: PropTypes.string,
 };

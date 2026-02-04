@@ -54,9 +54,9 @@
   --grid-mobile-margin: 16px;
 
   /* Page Padding Semantics */
-  --page-pt-desktop: var(--spacing-xlg); /* 56px */
+  --page-pt-desktop: var(--spacing-lg); /* 56px */
   --page-px-desktop: var(--spacing-lg); /* 24px */
-  --page-pt-mobile: var(--spacing-lg); /* 24px */
+  --page-pt-mobile: var(--spacing-md); /* 24px */
   --page-px-mobile: var(--spacing-md); /* 16px */
 }
 
@@ -135,24 +135,63 @@
   }
 }
 
-@keyframes breath {
-  0%,
-  100% {
-    background-size: 100% 100%;
+@keyframes ambientMove {
+  0% {
+    background-position:
+      50% 0%,
+      0% 100%,
+      center;
   }
   50% {
-    background-size: 120% 120%;
+    background-position:
+      50% 100%,
+      100% 0%,
+      center;
+  }
+  100% {
+    background-position:
+      50% 0%,
+      0% 100%,
+      center;
   }
 }
 
 .animate-breath {
-  background: radial-gradient(
-    circle at bottom left,
-    #2f3f45 0%,
-    var(--color-surface-100) 60%
-  );
-  background-attachment: fixed;
+  background:
+    /* top light wash */
+    radial-gradient(
+      circle at top center,
+      rgba(255, 255, 255, 0.08),
+      transparent 55%
+    ),
+    /* corner color depth */
+    radial-gradient(
+        circle at bottom left,
+        #141414 0%,
+        #1f2e33 55%,
+        transparent 70%
+      ),
+    /* base vignette */
+    radial-gradient(circle at center, #1b2a30 0%, #0e1519 75%);
+
   background-repeat: no-repeat;
-  background-position: bottom left;
-  animation: breath 5s ease-in-out infinite;
+  background-size:
+    120% 120%,
+    140% 140%,
+    100% 100%;
+  animation: ambientMove 20s ease-in-out infinite;
+}
+
+.animate-breath::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.25)
+  );
+  pointer-events: none;
 }

@@ -14,10 +14,7 @@ export const MainTemplate = ({
   ...props
 }) => {
   return (
-    <div
-      className={`min-h-screen bg-surface-100 flex flex-col ${className}`}
-      {...props}
-    >
+    <div className={`min-h-screen flex flex-col ${className}`} {...props}>
       <Header user={user} onLogout={onLogout} />
       <main className="page-body">{children}</main>
     </div>
