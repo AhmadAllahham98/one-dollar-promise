@@ -2,6 +2,7 @@ import React from "react";
 import { MainTemplate } from "../templates/MainTemplate";
 import { SignUpAuthForm } from "../organisms/SignUpAuthForm";
 import { UserPromiseDisplay } from "../organisms/UserPromiseDisplay";
+import StarIcon from "../../assets/StarIcon.svg";
 
 const RESPONSIVE_TITLE_STYLE = "font-display-md md:font-display-lg";
 const RESPONSIVE_SUBTITLE_STYLE = "font-interface-md md:font-interface-lg";
@@ -27,7 +28,16 @@ export const LandingPage = () => {
       {/* Central CTA Card */}
       <section className="flex flex-col items-center justify-center gap-y-md md:gap-y-lg max-w-[343px] md:max-w-[684px] backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-6">
         <h1 className={`text-center ${RESPONSIVE_TITLE_STYLE}`}>
-          Promises that stick<span className="font-bold text-accent">.</span>
+          Promises that st
+          <span className="relative inline-flex items-center">
+            ı
+            <img
+              src={StarIcon}
+              className="absolute -top-[-0.1em] left-1/2 -translate-x-1/2 w-[0.32em] h-[0.32em] max-w-none"
+              alt=""
+            />
+          </span>
+          ck
         </h1>
 
         {/* Separator Line */}
