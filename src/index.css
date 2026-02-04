@@ -76,11 +76,11 @@
   }
 
   .font-display-md {
-    @apply font-display text-[36px] leading-[1.2];
+    @apply font-display text-[32px] leading-[1.2];
   }
 
   .font-display-sm {
-    @apply font-display text-[28px] leading-[1.2];
+    @apply font-display text-[26px] leading-[1.2];
   }
 
   .font-interface-lg {
