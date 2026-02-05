@@ -12,12 +12,20 @@ export const MainTemplate = ({
   onLogout,
   children,
   className = "",
+  alignment = "top",
   ...props
 }) => {
+  const alignmentClasses = {
+    top: "justify-start",
+    center: "justify-center",
+  };
+
   return (
     <div className={`min-h-screen flex flex-col ${className}`} {...props}>
       <Header user={user} onLogout={onLogout} />
-      <main className="page-body">{children}</main>
+      <main className={`page-body ${alignmentClasses[alignment] || ""}`}>
+        {children}
+      </main>
       <Footer />
     </div>
   );
@@ -36,6 +44,10 @@ MainTemplate.propTypes = {
    * Main content of the page
    */
   children: PropTypes.node,
+  /**
+   * Vertical alignment of the content ('top' or 'center')
+   */
+  alignment: PropTypes.oneOf(["top", "center"]),
   /**
    * Additional classes for the wrapper
    */

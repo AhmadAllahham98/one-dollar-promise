@@ -25,6 +25,12 @@ Default.args = {
   ),
 };
 
+export const Centered = Template.bind({});
+Centered.args = {
+  ...Default.args,
+  alignment: "center",
+};
+
 export const Empty = Template.bind({});
 Empty.args = {
   user: null,
