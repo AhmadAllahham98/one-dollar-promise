@@ -1,18 +1,38 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { LandingPage } from "./components/Pages/LandingPage";
 import { DashboardPage } from "./components/Pages/DashboardPage";
+import { Header } from "./components/organisms/Header";
+import { Footer } from "./components/organisms/Footer";
 import "./index.css";
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 function App() {
   return (
     <Router>
-      <div className="animate-breath relative min-h-screen">
-        <div className="relative z-10">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-          </Routes>
+      <div className="animate-breath relative min-h-screen flex flex-col">
+        <Header />
+        <div className="relative z-10 flex-1 flex flex-col">
+          <AnimatedRoutes />
         </div>
+        <Footer />
       </div>
     </Router>
   );

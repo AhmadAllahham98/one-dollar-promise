@@ -1,15 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Header } from "../organisms/Header";
-import { Footer } from "../organisms/Footer";
+import { motion } from "framer-motion";
 
 /**
- * MainTemplate component providing the base layout structure.
- * Includes a Header at the top and a centered flex-column body.
+ * MainTemplate component providing the base layout structure for page content.
+ * Focuses on the main body with fade-in/out animations.
  */
 export const MainTemplate = ({
-  user = null,
-  onLogout,
   children,
   className = "",
   alignment = "top",
@@ -21,25 +18,20 @@ export const MainTemplate = ({
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${className}`} {...props}>
-      <Header user={user} onLogout={onLogout} />
-      <main className={`page-body ${alignmentClasses[alignment] || ""}`}>
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className={`page-body ${alignmentClasses[alignment] || ""} ${className}`}
+      {...props}
+    >
+      {children}
+    </motion.main>
   );
 };
 
 MainTemplate.propTypes = {
-  /**
-   * Current user object
-   */
-  user: PropTypes.object,
-  /**
-   * Logout handler passed to Header
-   */
-  onLogout: PropTypes.func,
   /**
    * Main content of the page
    */
