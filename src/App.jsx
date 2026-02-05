@@ -6,10 +6,14 @@ import "./index.css";
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-      </Routes>
+      <div className="animate-breath relative min-h-screen">
+        <div className="relative z-10">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }

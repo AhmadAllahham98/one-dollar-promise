@@ -13,7 +13,7 @@ export const LandingPage = () => {
   };
 
   return (
-    <MainTemplate className="animate-breath" alignment="top">
+    <MainTemplate alignment="top">
       <UserPromiseDisplay
         safeWidthPx={840}
         maxReachPx={800}
