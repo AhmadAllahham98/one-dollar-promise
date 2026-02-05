@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { UserPromise } from "../molecules/UserPromise";
 
+// Default promises for the ambient background
 const DEFAULT_PROMISES = [
   {
     id: 1,
@@ -55,6 +56,57 @@ const DEFAULT_PROMISES = [
   },
 ];
 
+/**
+ * Logic helper to calculate animation properties
+ */
+const calculatePromiseMetas = (promises, config) => {
+  const { safeWidthPx, maxReachPx, minReachPy, maxReachPy } = config;
+  const poolSize = promises.length;
+  if (poolSize === 0) return [];
+
+  // Create a stable shuffle of row indices
+  const rowIndices = Array.from({ length: poolSize }, (_, i) => i).sort(
+    () => 0.5 - Math.random(),
+  );
+
+  return promises.map((promise, index) => {
+    const side = Math.random() > 0.5 ? 1 : -1;
+    const minX = safeWidthPx / 2 + 60;
+    const maxX = maxReachPx;
+    const xOffset = side * (minX + Math.random() * (maxX - minX));
+
+    const rowHeight = (maxReachPy - minReachPy) / poolSize;
+    const yPos =
+      minReachPy +
+      rowIndices[index] * rowHeight +
+      Math.random() * rowHeight * 0.3;
+
+    // Concurrency Math
+    const gapD = 4;
+    const gapM = 5;
+
+    const dist = Math.abs(xOffset);
+
+    return {
+      ...promise,
+      id: promise.id || `promise-${index}`,
+      styles: {
+        "--x-offset": `${xOffset}px`,
+        "--y-pos": `${yPos}px`,
+        "--delay-d": `${index * gapD}s`,
+        "--delay-m": `${index * gapM}s`,
+        "--duration-d": `${poolSize * gapD}s`,
+        "--duration-m": `${poolSize * gapM}s`,
+        "--depth-blur": `blur(${Math.max(0, (dist - 400) / 600).toFixed(2)}px)`,
+        "--depth-opacity": Math.max(0.6, 1 - dist / 3000).toFixed(2),
+      },
+    };
+  });
+};
+
+/**
+ * Ambient display of user promises that float in the background.
+ */
 export const UserPromiseDisplay = ({
   promises = DEFAULT_PROMISES,
   className = "",
@@ -63,99 +115,26 @@ export const UserPromiseDisplay = ({
   minReachPy = 50,
   maxReachPy = 800,
 }) => {
-  const animatedPromises = useMemo(() => {
-    // 1. Shuffle content order
-    const shuffled = [...promises].sort(() => Math.random() - 0.5);
-    // 2. Create unique shuffled row indices to prevent vertical overlap
-    const poolSize = promises.length;
-    const rowIndices = Array.from({ length: poolSize }, (_, i) => i).sort(
-      () => Math.random() - 0.5,
-    );
-
-    return shuffled.map((promise, index) => {
-      // PERSISTENT POSITIONS
-      const side = Math.random() > 0.5 ? 1 : -1;
-      const minX = safeWidthPx / 2 + 60;
-      const maxX = maxReachPx;
-      const xOffset = side * (minX + Math.random() * (maxX - minX));
-
-      // Unique row logic using new vertical reach props
-      const rowHeight = (maxReachPy - minReachPy) / poolSize;
-      const rowIndex = rowIndices[index];
-      const yPos =
-        minReachPy + rowIndex * rowHeight + Math.random() * rowHeight * 0.3;
-
-      /**
-       * CONCURRENCY & LOOP CONTROL
-       * Rule: totalDuration = PoolSize * Gap.
-       * Rule: Visible concurrency = ActivePercentage * PoolSize.
-       */
-
-      // DESKTOP: Slower movement, 4 concurrent visible.
-      // Keyframes are 40% active. 4 visible / 10 pool = 40%.
-      const gapD = 4; // New promise every 4s
-      const durationD = poolSize * gapD; // 40s total loop
-      const delayD = index * gapD;
-
-      // MOBILE: Snappy 1-at-a-time.
-      // Keyframes are 10% active. 1 visible / 10 pool = 10%.
-      const gapM = 5; // New promise every 5s
-      const durationM = poolSize * gapM; // 50s total loop
-      const delayM = index * gapM;
-
-      // DOFX
-      const dist = Math.abs(xOffset);
-      const blurAmount = Math.max(0, (dist - 400) / 600).toFixed(2);
-      const opacityFactor = Math.max(0.6, 1 - dist / 3000).toFixed(2);
-
-      return {
-        ...promise,
-        xOffset: `${xOffset}px`,
-        yPos: `${yPos}px`,
-        delayD: `${delayD}s`,
-        delayM: `${delayM}s`,
-        durationD: `${durationD}s`,
-        durationM: `${durationM}s`,
-        blur: blurAmount,
-        opacity: opacityFactor,
-      };
-    });
-  }, [promises, safeWidthPx, maxReachPx, minReachPy, maxReachPy]);
+  const animatedPromises = useMemo(
+    () =>
+      calculatePromiseMetas(promises, {
+        safeWidthPx,
+        maxReachPx,
+        minReachPy,
+        maxReachPy,
+      }),
+    [promises, safeWidthPx, maxReachPx, minReachPy, maxReachPy],
+  );
 
   return (
     <div
-      className={`absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] z-0 overflow-hidden pointer-events-none ${className}`}
+      className={`absolute inset-0 pointer-events-none overflow-hidden z-0 ${className}`}
     >
-      <style>{`
-        .promise-item {
-          animation-duration: var(--duration-m);
-          animation-delay: var(--delay-m);
-          bottom: 120px;
-          left: 50%;
-        }
-        @media (min-width: 768px) {
-          .promise-item {
-            animation-duration: var(--duration-d);
-            animation-delay: var(--delay-d);
-            bottom: var(--y-pos);
-            left: calc(50% + var(--x-offset));
-          }
-        }
-      `}</style>
-      {animatedPromises.map((p, index) => (
+      {animatedPromises.map((p) => (
         <div
-          key={p.id || index}
-          className="absolute animate-promise-float promise-item"
-          style={{
-            "--x-offset": p.xOffset,
-            "--y-pos": p.yPos,
-            "--depth-blur": `blur(${p.blur}px)`,
-            "--depth-opacity": p.opacity,
-            "--delay-d": p.delayD,
-            "--delay-m": p.delayM,
-            "--duration-d": p.durationD,
-            "--duration-m": p.durationM,
-          }}
+          key={p.id}
+          className="promise-item absolute animate-promise-float"
+          style={p.styles}
         >
           <UserPromise imageUrl={p.imageUrl} promiseText={p.promiseText} />
         </div>

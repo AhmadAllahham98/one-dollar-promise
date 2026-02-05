@@ -201,28 +201,28 @@
   0% {
     opacity: 0;
     filter: var(--depth-blur);
-    transform: translate(-50%, 25px);
+    transform: translate3d(-50%, 25px, 0);
   }
   2% {
     opacity: var(--depth-opacity);
     filter: var(--depth-blur);
-    transform: translate(-50%, 0);
+    transform: translate3d(-50%, 0, 0);
   }
   8% {
     opacity: var(--depth-opacity);
     filter: var(--depth-blur);
-    transform: translate(-50%, 0);
+    transform: translate3d(-50%, 0, 0);
   }
   10% {
     opacity: 0;
     filter: var(--depth-blur);
-    transform: translate(-50%, -25px);
+    transform: translate3d(-50%, -25px, 0);
   }
   10.01%,
   100% {
     opacity: 0;
     filter: blur(0);
-    transform: translate(-50%, 100vh);
+    transform: translate3d(-50%, 100vh, 0);
     pointer-events: none;
   }
 }
@@ -233,28 +233,28 @@
     0% {
       opacity: 0;
       filter: var(--depth-blur);
-      transform: translate(-50%, 30px);
+      transform: translate3d(-50%, 30px, 0);
     }
     5% {
       opacity: var(--depth-opacity);
       filter: var(--depth-blur);
-      transform: translate(-50%, 0);
+      transform: translate3d(-50%, 0, 0);
     }
     35% {
       opacity: var(--depth-opacity);
       filter: var(--depth-blur);
-      transform: translate(-50%, 0);
+      transform: translate3d(-50%, 0, 0);
     }
     40% {
       opacity: 0;
       filter: var(--depth-blur);
-      transform: translate(-50%, -30px);
+      transform: translate3d(-50%, -30px, 0);
     }
     40.01%,
     100% {
       opacity: 0;
       filter: blur(0);
-      transform: translate(-50%, 100vh);
+      transform: translate3d(-50%, 100vh, 0);
       pointer-events: none;
     }
   }
@@ -266,4 +266,24 @@
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
   opacity: 0;
+  will-change: transform, opacity;
+}
+
+.promise-item {
+  animation-duration: var(--duration-m);
+  animation-delay: var(--delay-m);
+  bottom: 120px;
+  left: 50%;
+  opacity: var(--depth-opacity);
+  filter: var(--depth-blur);
+  will-change: transform, opacity;
+}
+
+@media (min-width: 768px) {
+  .promise-item {
+    animation-duration: var(--duration-d);
+    animation-delay: var(--delay-d);
+    bottom: var(--y-pos);
+    left: calc(50% + var(--x-offset));
+  }
 }
