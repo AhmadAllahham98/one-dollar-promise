@@ -8,7 +8,7 @@ import { GlassCard } from "../atoms/GlassCard";
 /**
  * PromiseForm component for creating new promises.
  */
-export const PromiseForm = ({ onPromise, className = "", ...props }) => {
+export const PromiseForm = ({ onPromiseCreated, className = "", ...props }) => {
   const [promise, setPromise] = useState("");
 
   const sectionGap = "gap-y-md md:gap-y-lg";
@@ -20,8 +20,8 @@ export const PromiseForm = ({ onPromise, className = "", ...props }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onPromise) {
-      onPromise(promise);
+    if (onPromiseCreated) {
+      onPromiseCreated(promise);
     }
   };
 
@@ -60,7 +60,7 @@ PromiseForm.propTypes = {
   /**
    * Callback when the promise is submitted
    */
-  onPromise: PropTypes.func,
+  onPromiseCreated: PropTypes.func,
   /**
    * Additional tailwind classes
    */

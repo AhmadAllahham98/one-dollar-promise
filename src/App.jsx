@@ -7,6 +7,7 @@ import {
 import { AnimatePresence } from "framer-motion";
 import { LandingPage } from "./components/Pages/LandingPage";
 import { DashboardPage } from "./components/Pages/DashboardPage";
+import { PromiseStatusPage } from "./components/Pages/PromiseStatusPage";
 import { Header } from "./components/organisms/Header";
 import { Footer } from "./components/organisms/Footer";
 import "./index.css";
@@ -19,6 +20,7 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/promise-status" element={<PromiseStatusPage />} />
       </Routes>
     </AnimatePresence>
   );
