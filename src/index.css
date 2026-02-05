@@ -10,6 +10,7 @@
   --color-slate-700: #40484b;
   --color-slate-900: #253136;
   --color-white: #ffffff;
+  --color-off-white: #f3f5f6;
   --color-black: #000000;
 
   /* Colors - Semantics (How we use them) */
@@ -18,7 +19,7 @@
   --color-accent2: var(--color-stone-600);
   --color-surface-100: var(--color-slate-900);
   --color-surface-200: var(--color-slate-700);
-  --color-surface-white: var(--color-white);
+  --color-surface-white: var(--color-off-white);
   --color-content-base: var(--color-white);
   --color-content-inverse: var(--color-black);
 

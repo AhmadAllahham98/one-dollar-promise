@@ -14,7 +14,7 @@ export const Footer = ({ className = "", ...props }) => {
       >
         © 2026 One Dollar Promise
       </p>
-      <p className={`text-center ${responsiveTextStyle}`}>
+      <p className={`text-center italic ${responsiveTextStyle}`}>
         All proceeds go to supporting the people of{" "}
         <span className="text-accent font-bold">Gaza</span>
       </p>
