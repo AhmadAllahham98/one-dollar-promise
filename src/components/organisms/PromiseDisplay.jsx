@@ -43,23 +43,34 @@ export const PromiseDisplay = ({
       <div className={`flex flex-col items-center w-full ${subsectionGap}`}>
         {promiseActionable ? (
           <>
-            <span className="font-interface-sm md:font-interface-md w-full text-center text-content-base">
-              How did it go?
-            </span>
+            <div className="flex flex-col items-center w-full gap-y-xsm">
+              <span className="font-interface-sm md:font-interface-md w-full text-center text-content-base opacity-60">
+                How did it go?
+              </span>
+              <span className="font-interface-sm md:font-interface-md w-full text-center text-content-base opacity-60 italic">
+                (all pledges go to charity)
+              </span>
+            </div>
             <div className="flex flex-row w-full items-center justify-center gap-x-sm md:gap-x-md">
               <Button
                 size="large"
                 style="solid"
-                label="Fail (-$1)"
-                onClick={onFail}
+                label="Fail"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onFail && onFail(e);
+                }}
                 className="flex-1 max-w-[212px]"
                 iconRight={ThumbsDownIcon}
               />
               <Button
                 size="large"
                 style="solid"
-                label="Success (+$1)"
-                onClick={onSuccess}
+                label="Success"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSuccess && onSuccess(e);
+                }}
                 className="flex-1 max-w-[212px]"
                 iconRight={ThumbsUpIcon}
               />
