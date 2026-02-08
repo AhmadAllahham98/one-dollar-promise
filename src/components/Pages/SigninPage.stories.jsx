@@ -1,8 +1,8 @@
-import { SignInPage } from "./SignInPage";
+import { SignInPage } from "./SigninPage";
 import { MemoryRouter } from "react-router-dom";
 
 export default {
-  title: "Pages/SignInPage",
+  title: "Pages/SigninPage",
   component: SignInPage,
   parameters: {
     layout: "fullscreen",

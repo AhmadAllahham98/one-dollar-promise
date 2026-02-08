@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { LandingPage } from "./components/Pages/LandingPage";
-import { SignInPage } from "./components/Pages/SignInPage";
+import { SignInPage } from "./components/Pages/SigninPage";
+import { PromiseResultPage } from "./components/Pages/PromiseResultPage";
 import { PromiseStatusPage } from "./components/Pages/PromiseStatusPage";
 import { UserPromiseDisplay } from "./components/organisms/UserPromiseDisplay";
 import { Header } from "./components/organisms/Header";
@@ -27,6 +28,12 @@ const AnimatedRoutes = ({ onLogin, user }) => {
           path="/promise-status"
           element={
             user ? <PromiseStatusPage /> : <SignInPage onLogin={onLogin} />
+          }
+        />
+        <Route
+          path="/promise-result"
+          element={
+            user ? <PromiseResultPage /> : <SignInPage onLogin={onLogin} />
           }
         />
       </Routes>
