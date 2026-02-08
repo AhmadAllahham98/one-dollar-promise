@@ -17,7 +17,7 @@ export const SignInPage = ({ onLogin }) => {
   };
 
   return (
-    <MainTemplate alignment="center">
+    <MainTemplate alignment="top">
       <GlassCard
         as="section"
         className="card-container card-padding"
