@@ -1,4 +1,4 @@
-import { ActivePromiseCard } from "../components/organisms/ActivePromiseCard";
+import { ActivePromiseCard } from "./ActivePromiseCard";
 
 export default {
   title: "Organisms/ActivePromiseCard",

@@ -53,53 +53,64 @@ export const SignUpAuthForm = ({
 
   return (
     <form
-      className={`flex flex-col gap-xsm w-full max-w-[448px] ${className}`}
+      className={`card-container section-gap flex flex-col h-full ${className}`}
       onSubmit={(e) => e.preventDefault()}
       {...props}
     >
-      <InputField
-        type="email"
-        placeholder="Email Address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <InputField
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <div
-        className={`grid transition-all duration-500 ease-out ${
-          isLogin ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <InputField
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="mb-xsm"
-          />
+      <span className="font-display-sm md:font-display-md w-full text-center text-content-base">
+        Create an account to keep your promise
+      </span>
+      <div className="w-full h-[1px] bg-surface-200" />
+      <div className="form-width flex flex-col items-stretch justify-center flex-1 gap-y-xsm">
+        <InputField
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <InputField
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div
+          className={`grid transition-all duration-500 ease-out ${
+            isLogin
+              ? "grid-rows-[0fr] opacity-0"
+              : "grid-rows-[1fr] opacity-100"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <InputField
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="mb-xsm"
+            />
+          </div>
         </div>
+        <Button
+          label="Log In"
+          style={isLogin ? "solid" : "outline"}
+          onClick={handleLogin}
+          className="w-full"
+        />
+        <Button
+          label="Sign Up"
+          style={isLogin ? "outline" : "solid"}
+          onClick={handleSignup}
+          className="w-full"
+        />
+        <Button
+          label="Continue with Google"
+          style="solid"
+          iconLeft={GoogleIcon}
+          onClick={onGoogleAction}
+          className="w-full"
+        />
       </div>
-      <Button
-        label="Log In"
-        style={isLogin ? "solid" : "outline"}
-        onClick={handleLogin}
-      />
-      <Button
-        label="Sign Up"
-        style={isLogin ? "outline" : "solid"}
-        onClick={handleSignup}
-      />
-      <Button
-        label="Continue with Google"
-        style="solid"
-        iconLeft={GoogleIcon}
-        onClick={onGoogleAction}
-      />
     </form>
   );
 };

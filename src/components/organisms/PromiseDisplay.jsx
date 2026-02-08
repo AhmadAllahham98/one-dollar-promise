@@ -16,10 +16,6 @@ export const PromiseDisplay = ({
   className = "",
   ...props
 }) => {
-  const headingStyle = "font-display-sm md:font-display-md";
-  const interfaceStyle = "font-interface-sm md:font-interface-md";
-  const buttonsGap = "gap-x-sm md:gap-x-md";
-  const sectionGap = "gap-y-md md:gap-y-lg";
   const subsectionGap = "gap-y-xsm md:gap-y-md";
 
   // Wrapper for the Star Icon to be used as a component in Button
@@ -32,13 +28,11 @@ export const PromiseDisplay = ({
 
   return (
     <div
-      className={`flex flex-col items-center w-full max-w-[684px] ${sectionGap} ${className}`}
+      className={`card-container section-gap flex flex-col items-center ${className}`}
       {...props}
     >
       <div className={`flex flex-col items-center w-full ${subsectionGap}`}>
-        <span
-          className={`${headingStyle} w-full text-center text-content-base`}
-        >
+        <span className="font-display-sm md:font-display-md w-full text-center text-content-base">
           Your $1 Promise is:
         </span>
         <Quote className="w-full">{promise}</Quote>
@@ -49,14 +43,10 @@ export const PromiseDisplay = ({
       <div className={`flex flex-col items-center w-full ${subsectionGap}`}>
         {promiseActionable ? (
           <>
-            <span
-              className={`${interfaceStyle} w-full text-center text-content-base`}
-            >
+            <span className="font-interface-sm md:font-interface-md w-full text-center text-content-base">
               How did it go?
             </span>
-            <div
-              className={`flex flex-row w-full items-center justify-center ${buttonsGap}`}
-            >
+            <div className="flex flex-row w-full items-center justify-center gap-x-sm md:gap-x-md">
               <Button
                 size="large"
                 style="solid"
@@ -76,9 +66,7 @@ export const PromiseDisplay = ({
             </div>
           </>
         ) : (
-          <span
-            className={`${interfaceStyle} w-full text-center text-content-base opacity-60`}
-          >
+          <span className="font-interface-sm md:font-interface-md w-full text-center text-content-base opacity-60">
             Check in tomorrow to update your progress.
           </span>
         )}

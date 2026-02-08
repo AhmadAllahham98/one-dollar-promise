@@ -136,6 +136,31 @@
   }
 }
 
+/* Component Layout Utilities */
+.card-container {
+  @apply w-full max-w-[343px] md:max-w-[684px] mx-auto;
+}
+
+.card-padding {
+  @apply p-md md:p-lg;
+}
+
+.form-width {
+  @apply w-full max-w-[343px] md:max-w-[448px] mx-auto;
+}
+
+.section-gap {
+  @apply gap-y-md md:gap-y-lg;
+}
+
+.page-title {
+  @apply font-display-md md:font-display-lg text-center;
+}
+
+.page-subtitle {
+  @apply font-interface-md md:font-interface-lg font-light text-center;
+}
+
 @keyframes ambientMove {
   0% {
     background-position:

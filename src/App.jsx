@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { LandingPage } from "./components/Pages/LandingPage";
-import { DashboardPage } from "./components/Pages/DashboardPage";
+import { SignInPage } from "./components/Pages/SignInPage";
 import { PromiseStatusPage } from "./components/Pages/PromiseStatusPage";
 import { Header } from "./components/organisms/Header";
 import { Footer } from "./components/organisms/Footer";
@@ -19,7 +19,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/signin" element={<SignInPage />} />
         <Route path="/promise-status" element={<PromiseStatusPage />} />
       </Routes>
     </AnimatePresence>
