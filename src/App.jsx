@@ -35,7 +35,7 @@ const AnimatedRoutes = ({ onLogin, user }) => {
 };
 
 // Sub-component to access hooks inside Router
-const AppContent = ({ user, handleLogin, handleLogout }) => {
+const AppContent = ({ user, handleLogin, handleLogout, handleLogoClick }) => {
   return (
     <div className="animate-breath relative min-h-screen flex flex-col overflow-x-hidden">
       {/* Decorative element only visible when not logged in */}
@@ -53,7 +53,11 @@ const AppContent = ({ user, handleLogin, handleLogout }) => {
         />
       </div>
 
-      <Header user={user} onLogout={handleLogout} />
+      <Header
+        user={user}
+        onLogout={handleLogout}
+        onLogoClick={handleLogoClick}
+      />
 
       <div className="relative z-10 flex-1 flex flex-col">
         <AnimatedRoutes onLogin={handleLogin} user={user} />
@@ -77,6 +81,10 @@ function App() {
 const AppWrapper = ({ user, setUser }) => {
   const navigate = useNavigate();
 
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   const handleLogin = (userData) => {
     setUser({ ...userData, name: userData.email.split("@")[0] });
     // Navigation is handled inside the page components
@@ -92,6 +100,7 @@ const AppWrapper = ({ user, setUser }) => {
       user={user}
       handleLogin={handleLogin}
       handleLogout={handleLogout}
+      handleLogoClick={handleLogoClick}
     />
   );
 };
