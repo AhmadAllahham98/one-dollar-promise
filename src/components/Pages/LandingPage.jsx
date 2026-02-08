@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MainTemplate } from "../templates/MainTemplate";
-import { UserPromiseDisplay } from "../organisms/UserPromiseDisplay";
 import { PromiseForm } from "../organisms/PromiseForm";
 import { GlassCard } from "../atoms/GlassCard";
 import StarIcon from "../../assets/StarIcon.svg";
@@ -16,13 +15,6 @@ export const LandingPage = () => {
 
   return (
     <MainTemplate alignment="top">
-      <UserPromiseDisplay
-        safeWidthPx={840}
-        maxReachPx={800}
-        minReachPy={160}
-        maxReachPy={800}
-      />
-
       <GlassCard
         as="section"
         className="card-container card-padding"

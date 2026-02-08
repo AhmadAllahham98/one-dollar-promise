@@ -4,10 +4,14 @@ import { MainTemplate } from "../templates/MainTemplate";
 import { GlassCard } from "../atoms/GlassCard";
 import { SignUpAuthForm } from "../organisms/SignUpAuthForm";
 
-export const SignInPage = () => {
+export const SignInPage = ({ onLogin }) => {
   const navigate = useNavigate();
 
-  const handleSignIn = () => {
+  const handleSignIn = (credentials) => {
+    // Call the login handler passed from App.jsx
+    if (onLogin) {
+      onLogin(credentials);
+    }
     // Navigate to the status page after sign in
     navigate("/promise-status");
   };
