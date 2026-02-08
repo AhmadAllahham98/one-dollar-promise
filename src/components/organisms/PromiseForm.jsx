@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Button } from "../atoms/Button";
 import { InputBox } from "../atoms/InputBox";
 import StarIconUrl from "../../assets/StarIcon.svg";
-import { GlassCard } from "../atoms/GlassCard";
 
 /**
  * PromiseForm component for creating new promises.
@@ -26,11 +25,9 @@ export const PromiseForm = ({ onPromiseCreated, className = "", ...props }) => {
   };
 
   return (
-    <GlassCard
-      as="form"
+    <form
       onSubmit={handleSubmit}
-      className={`w-full max-w-[343px] md:max-w-[684px] p-md md:p-lg ${className}`}
-      containerClassName={`flex flex-col items-center w-full ${sectionGap}`}
+      className={`w-full max-w-[343px] md:max-w-[684px] p-md md:p-lg flex flex-col items-center ${sectionGap} ${className}`}
       {...props}
     >
       <span className={`${headingStyle} w-full text-center text-content-base`}>
@@ -52,7 +49,7 @@ export const PromiseForm = ({ onPromiseCreated, className = "", ...props }) => {
           iconRight={StarIcon}
         />
       </div>
-    </GlassCard>
+    </form>
   );
 };
 
