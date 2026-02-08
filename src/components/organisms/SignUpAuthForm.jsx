@@ -58,7 +58,7 @@ export const SignUpAuthForm = ({
       {...props}
     >
       <span className="font-display-sm md:font-display-md w-full text-center text-content-base">
-        Create an account to keep your promise
+        Create an account to store your promise
       </span>
       <div className="w-full h-[1px] bg-surface-200" />
       <div className="form-width flex flex-col items-stretch justify-center flex-1 gap-y-xsm">

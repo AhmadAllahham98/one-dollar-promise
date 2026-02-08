@@ -92,7 +92,7 @@ const AppWrapper = ({ user, setUser }) => {
 
   const handleLogout = () => {
     setUser(null);
-    navigate("/signin"); // Force navigation to trigger AnimatePresence
+    navigate("/");
   };
 
   return (
