@@ -1,4 +1,5 @@
 import { LandingPage } from "./LandingPage";
+import { MemoryRouter } from "react-router-dom";
 
 export default {
   title: "Pages/LandingPage",
@@ -6,6 +7,13 @@ export default {
   parameters: {
     layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 };
 
 export const Default = () => <LandingPage />;
