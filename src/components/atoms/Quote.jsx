@@ -11,7 +11,7 @@ export const Quote = ({ children, className = "", ...props }) => {
   return (
     <div
       className={[
-        "bg-accent2 text-content-base text-center italic font-regular",
+        "bg-surface-100 border-2 border-accent2 text-content-base text-center italic font-regular shadow-main",
         responsiveStyles,
         className,
       ].join(" ")}

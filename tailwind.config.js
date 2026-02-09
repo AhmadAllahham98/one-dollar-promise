@@ -4,17 +4,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "var(--color-primary)",
-        accent: "var(--color-accent)",
-        accent2: "var(--color-accent2)",
+        primary:
+          "color-mix(in srgb, var(--color-primary), transparent calc(100% - <alpha-value> * 100%))",
+        accent:
+          "color-mix(in srgb, var(--color-accent), transparent calc(100% - <alpha-value> * 100%))",
+        accent2:
+          "color-mix(in srgb, var(--color-accent2), transparent calc(100% - <alpha-value> * 100%))",
         surface: {
-          100: "var(--color-surface-100)",
-          200: "var(--color-surface-200)",
-          white: "var(--color-surface-white)",
+          100: "color-mix(in srgb, var(--color-surface-100), transparent calc(100% - <alpha-value> * 100%))",
+          200: "color-mix(in srgb, var(--color-surface-200), transparent calc(100% - <alpha-value> * 100%))",
+          white:
+            "color-mix(in srgb, var(--color-surface-white), transparent calc(100% - <alpha-value> * 100%))",
         },
         content: {
-          base: "var(--color-content-base)",
-          inverse: "var(--color-content-inverse)",
+          base: "color-mix(in srgb, var(--color-content-base), transparent calc(100% - <alpha-value> * 100%))",
+          inverse:
+            "color-mix(in srgb, var(--color-content-inverse), transparent calc(100% - <alpha-value> * 100%))",
         },
       },
       spacing: {
