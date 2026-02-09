@@ -4,16 +4,19 @@ import { MainTemplate } from "../templates/MainTemplate";
 import { GlassCard } from "../atoms/GlassCard";
 import { SignUpAuthForm } from "../organisms/SignUpAuthForm";
 
-export const SignInPage = ({ onLogin }) => {
+export const SignInPage = ({ onLogin, onSignup }) => {
   const navigate = useNavigate();
 
-  const handleSignIn = (credentials) => {
-    // Call the login handler passed from App.jsx
+  const handleSignIn = async (credentials) => {
     if (onLogin) {
-      onLogin(credentials);
+      await onLogin(credentials);
     }
-    // Navigate to the status page after sign in
-    navigate("/promise-status");
+  };
+
+  const handleSignUp = async (credentials) => {
+    if (onSignup) {
+      await onSignup(credentials);
+    }
   };
 
   return (
@@ -23,7 +26,7 @@ export const SignInPage = ({ onLogin }) => {
         className="card-container card-padding"
         containerClassName="flex flex-col items-center justify-center section-gap w-full"
       >
-        <SignUpAuthForm onLogin={handleSignIn} />
+        <SignUpAuthForm onLogin={handleSignIn} onSignup={handleSignUp} />
       </GlassCard>
     </MainTemplate>
   );
