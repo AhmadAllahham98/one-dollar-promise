@@ -8,6 +8,7 @@ export const Header = ({
   className = "",
   onLogout,
   onLogoClick,
+  onSignIn,
   ...props
 }) => {
   return (
@@ -22,23 +23,40 @@ export const Header = ({
         onClick={onLogoClick}
       />
       <div className="flex items-center gap-md ml-auto">
-        {user && (
-          <Button
-            size="small"
-            className="md:hidden"
-            style="ghost"
-            onClick={onLogout}
-            label="Sign out"
-          />
-        )}
-        {user && (
-          <Button
-            size="large"
-            className="hidden md:inline-flex"
-            style="ghost"
-            onClick={onLogout}
-            label="Sign out"
-          />
+        {user ? (
+          <>
+            <Button
+              size="small"
+              className="md:hidden"
+              style="ghost"
+              onClick={onLogout}
+              label="Sign out"
+            />
+            <Button
+              size="large"
+              className="hidden md:inline-flex"
+              style="ghost"
+              onClick={onLogout}
+              label="Sign out"
+            />
+          </>
+        ) : (
+          <>
+            <Button
+              size="small"
+              className="md:hidden"
+              style="ghost"
+              onClick={onSignIn}
+              label="Sign in"
+            />
+            <Button
+              size="large"
+              className="hidden md:inline-flex"
+              style="ghost"
+              onClick={onSignIn}
+              label="Sign in"
+            />
+          </>
         )}
       </div>
     </header>
