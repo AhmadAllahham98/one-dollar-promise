@@ -277,13 +277,24 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
         password,
       });
       if (error) throw error;
-      if (data.user) {
+      if (data.session) {
         // If user is immediately signed in (e.g., no email confirmation required)
         await handleAuthSuccess(data.user.id);
-      } else {
-        // If email confirmation is required
-        alert("Check your email for the confirmation link!");
-        navigate("/");
+      } else if (data.user) {
+        // If email confirmation is required OR if user already exists
+        // In Supabase, if a user already exists and you try to sign up:
+        // - and confirmation is ON: it returns the user but identities will be empty
+        // - and confirmation is OFF: it usually returns an error "User already registered" (caught in catch block)
+        const isExistingUser =
+          data.user.identities && data.user.identities.length === 0;
+
+        if (isExistingUser) {
+          alert("You already have an account. Please log in instead.");
+          // Stay on the sign in page as requested
+        } else {
+          alert("Check your email for the confirmation link!");
+          navigate("/");
+        }
       }
     } catch (error) {
       alert(error.error_description || error.message);
