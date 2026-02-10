@@ -1,11 +1,13 @@
 import React from "react";
+import { supabase } from "../../lib/supabase";
 import { MainTemplate } from "../templates/MainTemplate";
 import { PromiseDisplay } from "../organisms/PromiseDisplay";
 import { GlassCard } from "../atoms/GlassCard";
 import { useNavigate } from "react-router-dom";
 
-export const PromiseStatusPage = ({ promiseData }) => {
+export const PromiseStatusPage = ({ promiseData, onActioned }) => {
   const [isActionable, setIsActionable] = React.useState(false);
+  const [isUpdating, setIsUpdating] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -26,17 +28,44 @@ export const PromiseStatusPage = ({ promiseData }) => {
       );
 
       // If today is at least 1 day after created date
-      setIsActionable(todayZero > createdZero);
+      // setIsActionable(todayZero > createdZero);
+      setIsActionable(true);
     }
   }, [promiseData]);
 
-  const handleSuccess = () => {
-    navigate("/promise-result", { state: { result: "success" } });
+  const actionPromise = async (status) => {
+    if (!promiseData?.id || isUpdating) return;
+
+    setIsUpdating(true);
+    try {
+      const dbStatus = status === "success" ? "completed" : "failed";
+      const { error } = await supabase
+        .from("promises")
+        .update({ status: dbStatus })
+        .eq("id", promiseData.id);
+
+      if (error) throw error;
+
+      // Navigate first so AnimatePresence captures the current state of the page
+      navigate("/promise-result", { state: { result: status } });
+
+      // Then refresh the active promise state
+      if (onActioned) {
+        onActioned();
+      }
+    } catch (error) {
+      console.error(
+        `Error updating promise status to ${status}:`,
+        error.message,
+      );
+      alert("Failed to update promise. Please try again.");
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
-  const handleFailure = () => {
-    navigate("/promise-result", { state: { result: "failure" } });
-  };
+  const handleSuccess = () => actionPromise("success");
+  const handleFailure = () => actionPromise("failure");
 
   return (
     <MainTemplate alignment="center">

@@ -54,7 +54,10 @@ const AnimatedRoutes = ({
           element={
             user ? (
               activePromise ? (
-                <PromiseStatusPage promiseData={activePromise} />
+                <PromiseStatusPage
+                  promiseData={activePromise}
+                  onActioned={onPromiseCreated}
+                />
               ) : (
                 <LandingPage
                   activePromise={activePromise}
