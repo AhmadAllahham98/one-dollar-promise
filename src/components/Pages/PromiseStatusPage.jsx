@@ -4,6 +4,7 @@ import { MainTemplate } from "../templates/MainTemplate";
 import { PromiseDisplay } from "../organisms/PromiseDisplay";
 import { GlassCard } from "../atoms/GlassCard";
 import { useNavigate } from "react-router-dom";
+import { isPromiseActionable } from "../../utils/promiseUtils";
 
 export const PromiseStatusPage = ({ promiseData, onActioned }) => {
   const [isActionable, setIsActionable] = React.useState(false);
@@ -11,26 +12,7 @@ export const PromiseStatusPage = ({ promiseData, onActioned }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (promiseData?.created_at) {
-      const createdDate = new Date(promiseData.created_at);
-      const today = new Date();
-
-      // Zero out times to compare just the date
-      const createdZero = new Date(
-        createdDate.getFullYear(),
-        createdDate.getMonth(),
-        createdDate.getDate(),
-      );
-      const todayZero = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate(),
-      );
-
-      // If today is at least 1 day after created date
-      // setIsActionable(todayZero > createdZero);
-      setIsActionable(true);
-    }
+    setIsActionable(isPromiseActionable(promiseData?.created_at));
   }, [promiseData]);
 
   const actionPromise = async (status) => {

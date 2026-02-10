@@ -17,6 +17,7 @@ import { UserPromiseDisplay } from "./components/organisms/UserPromiseDisplay";
 import { Header } from "./components/organisms/Header";
 import { Footer } from "./components/organisms/Footer";
 import "./index.css";
+import { getAuthAction, AUTH_ACTION_TYPES } from "./utils/authUtils";
 
 const AnimatedRoutes = ({
   onLogin,
@@ -218,27 +219,26 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
       .eq("status", "active")
       .limit(1);
 
-    const hasExistingPromise = existingPromises && existingPromises.length > 0;
-
     // 2. Check for pending promise in session storage
     const pendingPromise = sessionStorage.getItem("pendingPromise");
 
-    if (hasExistingPromise) {
-      // If they already have an active promise, DISCARD any pending one from the front end
-      if (pendingPromise) {
+    // 3. Get the action based on business logic
+    const action = getAuthAction(existingPromises, pendingPromise);
+
+    if (action.type === AUTH_ACTION_TYPES.EXISTING_ACTIVE) {
+      if (action.shouldDiscardPending) {
         console.log(
           "Discarding pending promise because an active one exists in DB.",
         );
         sessionStorage.removeItem("pendingPromise");
       }
       await refreshPromise();
-      navigate("/promise-status");
-    } else if (pendingPromise) {
-      // Only save pending promise if they DON'T have an active one
+      navigate(action.navigateTo);
+    } else if (action.type === AUTH_ACTION_TYPES.MIGRATE_PENDING) {
       try {
         const { error } = await supabase.from("promises").insert([
           {
-            content: pendingPromise,
+            content: action.content,
             user_id: userId,
             user_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             status: "active",
@@ -247,14 +247,13 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
         if (error) throw error;
         sessionStorage.removeItem("pendingPromise");
         await refreshPromise();
-        navigate("/promise-status");
+        navigate(action.navigateTo);
       } catch (error) {
         console.error("Error saving pending promise:", error.message);
         navigate("/");
       }
     } else {
-      // Normal flow: No existing, No pending
-      navigate("/");
+      navigate(action.navigateTo);
     }
   };
 
