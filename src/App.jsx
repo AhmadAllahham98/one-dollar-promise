@@ -75,7 +75,7 @@ const AnimatedRoutes = ({
           path="/promise-result"
           element={
             user ? (
-              <PromiseResultPage />
+              <PromiseResultPage user={user} />
             ) : (
               <SignInPage onLogin={onLogin} onSignup={onSignup} />
             )
