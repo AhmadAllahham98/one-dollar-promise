@@ -38,6 +38,7 @@ export const PromiseResultPage = ({ user }) => {
               body: {
                 priceId: import.meta.env.VITE_STRIPE_PRICE_ID,
                 userId: user?.id,
+                promiseId: location.state?.promiseId,
               },
             },
           );

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { supabase } from "./lib/supabase";
@@ -12,6 +13,7 @@ import { LandingPage } from "./components/Pages/LandingPage";
 import { SignInPage } from "./components/Pages/SigninPage";
 import { PromiseResultPage } from "./components/Pages/PromiseResultPage";
 import { PromiseStatusPage } from "./components/Pages/PromiseStatusPage";
+import { PaymentResultPage } from "./components/Pages/PaymentResultPage";
 import { LoadingPage } from "./components/Pages/LoadingPage";
 import { UserPromiseDisplay } from "./components/organisms/UserPromiseDisplay";
 import { Header } from "./components/organisms/Header";
@@ -54,17 +56,15 @@ const AnimatedRoutes = ({
           path="/promise-status"
           element={
             user ? (
-              activePromise ? (
+              activePromise === undefined ? (
+                <LoadingPage />
+              ) : activePromise ? (
                 <PromiseStatusPage
                   promiseData={activePromise}
                   onActioned={onPromiseCreated}
                 />
               ) : (
-                <LandingPage
-                  activePromise={activePromise}
-                  user={user}
-                  onPromiseCreated={onPromiseCreated}
-                />
+                <Navigate to="/" replace />
               )
             ) : (
               <SignInPage onLogin={onLogin} onSignup={onSignup} />
@@ -76,6 +76,16 @@ const AnimatedRoutes = ({
           element={
             user ? (
               <PromiseResultPage user={user} />
+            ) : (
+              <SignInPage onLogin={onLogin} onSignup={onSignup} />
+            )
+          }
+        />
+        <Route
+          path="/payment-result"
+          element={
+            user ? (
+              <PaymentResultPage onActioned={onPromiseCreated} />
             ) : (
               <SignInPage onLogin={onLogin} onSignup={onSignup} />
             )
@@ -139,10 +149,17 @@ const AppContent = ({
 
 function App() {
   const [user, setUser] = useState(null);
-  const [activePromise, setActivePromise] = useState(null);
+  const [activePromise, setActivePromise] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
-  const fetchActivePromise = async (userId) => {
+  const lastFetchId = useRef(0);
+  const fetchActivePromise = useCallback(async (userId) => {
+    if (!userId) {
+      setActivePromise(null);
+      return;
+    }
+
+    const currentFetchId = ++lastFetchId.current;
     try {
       const { data, error } = await supabase
         .from("promises")
@@ -153,11 +170,15 @@ function App() {
         .limit(1);
 
       if (error) throw error;
-      setActivePromise(data && data.length > 0 ? data[0] : null);
+
+      // Only update state if this is still the most recent fetch request
+      if (currentFetchId === lastFetchId.current) {
+        setActivePromise(data && data.length > 0 ? data[0] : null);
+      }
     } catch (error) {
       console.error("Error fetching promise:", error.message);
     }
-  };
+  }, []);
 
   useEffect(() => {
     // Check active sessions and sets the user
@@ -192,7 +213,7 @@ function App() {
         user={user}
         activePromise={activePromise}
         loading={loading}
-        refreshPromise={() => user && fetchActivePromise(user.id)}
+        refreshPromise={(id) => fetchActivePromise(id || user?.id)}
       />
     </Router>
   );
@@ -232,7 +253,7 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
         );
         sessionStorage.removeItem("pendingPromise");
       }
-      await refreshPromise();
+      await refreshPromise(userId);
       navigate(action.navigateTo);
     } else if (action.type === AUTH_ACTION_TYPES.MIGRATE_PENDING) {
       try {
@@ -246,7 +267,7 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
         ]);
         if (error) throw error;
         sessionStorage.removeItem("pendingPromise");
-        await refreshPromise();
+        await refreshPromise(userId);
         navigate(action.navigateTo);
       } catch (error) {
         console.error("Error saving pending promise:", error.message);

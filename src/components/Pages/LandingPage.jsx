@@ -12,7 +12,7 @@ export const LandingPage = ({ activePromise, user, onPromiseCreated }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (activePromise) {
+    if (activePromise && window.location.pathname !== "/promise-status") {
       navigate("/promise-status");
     }
   }, [activePromise, navigate]);

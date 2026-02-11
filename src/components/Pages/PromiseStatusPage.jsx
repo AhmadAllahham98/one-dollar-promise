@@ -18,31 +18,37 @@ export const PromiseStatusPage = ({ promiseData, onActioned }) => {
   const actionPromise = async (status) => {
     if (!promiseData?.id || isUpdating) return;
 
-    setIsUpdating(true);
-    try {
-      const dbStatus = status === "success" ? "completed" : "failed";
-      const { error } = await supabase
-        .from("promises")
-        .update({ status: dbStatus })
-        .eq("id", promiseData.id);
+    if (status === "success") {
+      setIsUpdating(true);
+      try {
+        const { error } = await supabase
+          .from("promises")
+          .update({ status: "completed" })
+          .eq("id", promiseData.id);
 
-      if (error) throw error;
+        if (error) throw error;
 
-      // Navigate first so AnimatePresence captures the current state of the page
-      navigate("/promise-result", { state: { result: status } });
+        // Navigate first for animation
+        navigate("/promise-result", { state: { result: status } });
 
-      // Then refresh the active promise state
-      if (onActioned) {
-        onActioned();
+        if (onActioned) {
+          onActioned();
+        }
+      } catch (error) {
+        console.error("Error updating promise status:", error.message);
+        alert("Failed to update promise. Please try again.");
+      } finally {
+        setIsUpdating(false);
       }
-    } catch (error) {
-      console.error(
-        `Error updating promise status to ${status}:`,
-        error.message,
-      );
-      alert("Failed to update promise. Please try again.");
-    } finally {
-      setIsUpdating(false);
+    } else {
+      // For failure, we DON'T update the DB yet.
+      // We go to the result page which will trigger the Stripe redirect.
+      navigate("/promise-result", {
+        state: {
+          result: "failure",
+          promiseId: promiseData.id,
+        },
+      });
     }
   };
 
