@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { supabase } from "../../lib/supabase";
 import { MainTemplate } from "../templates/MainTemplate";
 import { GlassCard } from "../atoms/GlassCard";
 import { TextMessage } from "../organisms/TextMessage";
+import {
+  getPaymentContent,
+  markPromiseAsFailedAfterPayment,
+  PAYMENT_RESULTS,
+} from "../../utils/stripeUtils";
 
 export const PaymentResultPage = ({ onActioned }) => {
   const navigate = useNavigate();
@@ -13,32 +17,14 @@ export const PaymentResultPage = ({ onActioned }) => {
   const result = searchParams.get("result"); // 'success' or 'cancel'
   const promiseId = searchParams.get("promiseId");
 
-  const content = {
-    success: {
-      title: "Pledge Paid",
-      message:
-        "Your contribution helps support families in Gaza. You'll receive monthly updates in your inbox.",
-    },
-    cancel: {
-      title: "Payment Cancelled",
-      message: "Taking you back to your promise...",
-    },
-  };
-
-  const { title, message } = content[result] || content.success;
+  const { title, message } = getPaymentContent(result, true);
 
   useEffect(() => {
-    if (result === "success" && promiseId) {
-      const markAsFailed = async () => {
+    if (result === PAYMENT_RESULTS.SUCCESS && promiseId) {
+      const handleSuccess = async () => {
         setIsUpdating(true);
         try {
-          const { error } = await supabase
-            .from("promises")
-            .update({ status: "failed" })
-            .eq("id", promiseId);
-
-          if (error) throw error;
-
+          await markPromiseAsFailedAfterPayment(promiseId);
           if (onActioned) {
             onActioned();
           }
@@ -49,13 +35,13 @@ export const PaymentResultPage = ({ onActioned }) => {
         }
       };
 
-      markAsFailed();
+      handleSuccess();
 
       const timer = setTimeout(() => {
         navigate("/");
       }, 4000); // 4 seconds so they can read the text
       return () => clearTimeout(timer);
-    } else if (result === "cancel") {
+    } else if (result === PAYMENT_RESULTS.CANCEL) {
       // If cancelled, go back to the status page immediately
       const timer = setTimeout(() => {
         navigate("/promise-status");

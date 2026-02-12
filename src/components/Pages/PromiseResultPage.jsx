@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { supabase } from "../../lib/supabase";
 import { MainTemplate } from "../templates/MainTemplate";
 import { GlassCard } from "../atoms/GlassCard";
 import { TextMessage } from "../organisms/TextMessage";
+import {
+  getPaymentContent,
+  initiateStripeCheckout,
+  PAYMENT_RESULTS,
+} from "../../utils/stripeUtils";
 
 export const PromiseResultPage = ({ user }) => {
   const location = useLocation();
@@ -12,44 +16,21 @@ export const PromiseResultPage = ({ user }) => {
 
   // Priority: 1. URL search params (from Stripe) 2. React Router state (from internal navigation)
   const result =
-    searchParams.get("result") || location.state?.result || "success";
+    searchParams.get("result") ||
+    location.state?.result ||
+    PAYMENT_RESULTS.SUCCESS;
 
-  const content = {
-    success: {
-      title: "Awesome.",
-      message: "You're good to go. Keep it up!",
-    },
-    failure: {
-      title: "That’s okay.",
-      message: "Redirecting you to pay your pledge...",
-    },
-  };
-
-  const { title, message } = content[result] || content.success;
+  const { title, message } = getPaymentContent(result);
 
   useEffect(() => {
-    if (result === "failure") {
+    if (result === PAYMENT_RESULTS.FAILURE) {
       const handlePayment = async () => {
         try {
-          // Call Supabase Edge Function to create Checkout Session
-          const { data, error } = await supabase.functions.invoke(
-            "create-checkout",
-            {
-              body: {
-                priceId: import.meta.env.VITE_STRIPE_PRICE_ID,
-                userId: user?.id,
-                promiseId: location.state?.promiseId,
-              },
-            },
+          const checkoutUrl = await initiateStripeCheckout(
+            user?.id,
+            location.state?.promiseId,
           );
-
-          if (error) throw error;
-
-          if (data?.url) {
-            window.location.href = data.url;
-          } else {
-            throw new Error(data?.error || "No checkout URL returned");
-          }
+          window.location.href = checkoutUrl;
         } catch (error) {
           console.error("Payment initiation failed:", error.message);
           alert(
@@ -67,7 +48,7 @@ export const PromiseResultPage = ({ user }) => {
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [result, navigate, user]);
+  }, [result, navigate, user, location.state?.promiseId]);
 
   return (
     <MainTemplate alignment="center">
