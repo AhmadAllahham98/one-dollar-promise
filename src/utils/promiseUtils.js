@@ -21,6 +21,5 @@ export const isPromiseActionable = (createdAt, now = new Date()) => {
   const nowZero = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   // A promise is actionable if 'now' is at least one day after 'createdDate'
-  // return nowZero > createdZero;
-  return true;
+  return nowZero > createdZero;
 };

@@ -52,7 +52,21 @@ export const initiateStripeCheckout = async (userId, promiseId) => {
     },
   });
 
-  if (error) throw error;
+  if (error) {
+    // Attempt to extract the custom error message we sent from the Edge Function
+    let customMsg = error.message;
+    try {
+      if (error.context && typeof error.context.json === "function") {
+        const body = await error.context.json();
+        customMsg = body.error || customMsg;
+      }
+    } catch (e) {
+      console.error("Could not parse error body:", e);
+    }
+
+    throw new Error(customMsg || "Unknown checkout error");
+  }
+
   if (!data?.url) throw new Error("No checkout URL returned from server");
 
   return data.url;
