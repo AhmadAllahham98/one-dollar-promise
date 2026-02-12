@@ -20,6 +20,7 @@ import { Header } from "./components/organisms/Header";
 import { Footer } from "./components/organisms/Footer";
 import "./index.css";
 import { getAuthAction, AUTH_ACTION_TYPES } from "./utils/authUtils";
+import toast, { Toaster } from "react-hot-toast";
 
 const AnimatedRoutes = ({
   onLogin,
@@ -143,6 +144,34 @@ const AppContent = ({
         />
       </div>
       <Footer />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "rgba(37, 49, 54, 0.8)",
+            color: "var(--color-white)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            padding: "16px",
+            borderRadius: "var(--radius-lg)",
+            fontFamily: "var(--font-interface)",
+            fontSize: "14px",
+          },
+          success: {
+            iconTheme: {
+              primary: "var(--color-primary)",
+              secondary: "var(--color-slate-900)",
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: "#ff4b4b",
+              secondary: "var(--color-white)",
+            },
+          },
+        }}
+      />
     </div>
   );
 };
@@ -289,7 +318,7 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
         await handleAuthSuccess(data.user.id);
       }
     } catch (error) {
-      alert(error.error_description || error.message);
+      toast.error(error.error_description || error.message);
     }
   };
 
@@ -312,15 +341,15 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
           data.user.identities && data.user.identities.length === 0;
 
         if (isExistingUser) {
-          alert("You already have an account. Please log in instead.");
+          toast.error("You already have an account. Please log in instead.");
           // Stay on the sign in page as requested
         } else {
-          alert("Check your email for the confirmation link!");
+          toast.success("Check your email for the confirmation link!");
           navigate("/");
         }
       }
     } catch (error) {
-      alert(error.error_description || error.message);
+      toast.error(error.error_description || error.message);
     }
   };
 

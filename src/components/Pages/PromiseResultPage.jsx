@@ -8,6 +8,7 @@ import {
   initiateStripeCheckout,
   PAYMENT_RESULTS,
 } from "../../utils/stripeUtils";
+import toast from "react-hot-toast";
 
 export const PromiseResultPage = ({ user }) => {
   const location = useLocation();
@@ -33,7 +34,7 @@ export const PromiseResultPage = ({ user }) => {
           window.location.href = checkoutUrl;
         } catch (error) {
           console.error("Payment initiation failed:", error.message);
-          alert(
+          toast.error(
             "Failed to initiate payment. Please try again or contact support.",
           );
           navigate("/");

@@ -5,6 +5,7 @@ import { PromiseDisplay } from "../organisms/PromiseDisplay";
 import { GlassCard } from "../atoms/GlassCard";
 import { useNavigate } from "react-router-dom";
 import { isPromiseActionable } from "../../utils/promiseUtils";
+import toast from "react-hot-toast";
 
 export const PromiseStatusPage = ({ promiseData, onActioned }) => {
   const [isActionable, setIsActionable] = React.useState(false);
@@ -36,7 +37,7 @@ export const PromiseStatusPage = ({ promiseData, onActioned }) => {
         }
       } catch (error) {
         console.error("Error updating promise status:", error.message);
-        alert("Failed to update promise. Please try again.");
+        toast.error("Failed to update promise. Please try again.");
       } finally {
         setIsUpdating(false);
       }
