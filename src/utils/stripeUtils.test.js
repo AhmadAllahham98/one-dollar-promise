@@ -84,9 +84,9 @@ describe("stripeUtils", () => {
         error: { message: "API Error" },
       });
 
-      await expect(initiateStripeCheckout("user_123")).rejects.toEqual({
-        message: "API Error",
-      });
+      await expect(initiateStripeCheckout("user_123")).rejects.toThrow(
+        "API Error",
+      );
     });
   });
 });

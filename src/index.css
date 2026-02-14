@@ -66,6 +66,7 @@
   body {
     @apply bg-surface-100 text-content-base font-interface antialiased;
     min-height: 100vh;
+    min-height: 100dvh;
     line-height: 1.5;
   }
 }
@@ -249,9 +250,16 @@
   10.01%,
   100% {
     opacity: 0;
-    filter: blur(0);
+    filter: none !important;
     transform: translate3d(-50%, 100vh, 0);
     pointer-events: none;
+  }
+}
+
+/* Mobile: Remove blur effect */
+@media (max-width: 767px) {
+  .promise-item {
+    filter: none !important;
   }
 }
 

@@ -12,9 +12,30 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
+import { VitePWA } from "vite-plugin-pwa";
+
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["favicon.svg", "Logo.svg", "og-preview.jpg"],
+      manifest: {
+        name: "One Dollar Promise",
+        short_name: "1$ Promise",
+        description: "Build daily habits with a $1 daily commitment.",
+        theme_color: "#253136",
+        icons: [
+          {
+            src: "favicon.svg",
+            sizes: "any",
+            type: "image/svg+xml",
+          },
+        ],
+      },
+    }),
+  ],
   test: {
     projects: [
       {

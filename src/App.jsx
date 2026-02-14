@@ -15,6 +15,7 @@ import { PromiseResultPage } from "./components/Pages/PromiseResultPage";
 import { PromiseStatusPage } from "./components/Pages/PromiseStatusPage";
 import { PaymentResultPage } from "./components/Pages/PaymentResultPage";
 import { LoadingPage } from "./components/Pages/LoadingPage";
+import { EmailVerificationPage } from "./components/Pages/EmailVerificationPage";
 import { UserPromiseDisplay } from "./components/organisms/UserPromiseDisplay";
 import { Header } from "./components/organisms/Header";
 import { Footer } from "./components/organisms/Footer";
@@ -25,6 +26,7 @@ import toast, { Toaster } from "react-hot-toast";
 const AnimatedRoutes = ({
   onLogin,
   onSignup,
+  onGoogleLogin,
   user,
   activePromise,
   loading,
@@ -36,22 +38,35 @@ const AnimatedRoutes = ({
     return <LoadingPage />;
   }
 
+  const isEmailUnconfirmed = user && !user.email_confirmed_at;
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="/verify-email" element={<EmailVerificationPage />} />
         <Route
           path="/"
           element={
-            <LandingPage
-              activePromise={activePromise}
-              user={user}
-              onPromiseCreated={onPromiseCreated}
-            />
+            isEmailUnconfirmed ? (
+              <Navigate to="/verify-email" replace />
+            ) : (
+              <LandingPage
+                activePromise={activePromise}
+                user={user}
+                onPromiseCreated={onPromiseCreated}
+              />
+            )
           }
         />
         <Route
           path="/signin"
-          element={<SignInPage onLogin={onLogin} onSignup={onSignup} />}
+          element={
+            <SignInPage
+              onLogin={onLogin}
+              onSignup={onSignup}
+              onGoogleAction={onGoogleLogin}
+            />
+          }
         />
         <Route
           path="/promise-status"
@@ -68,7 +83,11 @@ const AnimatedRoutes = ({
                 <Navigate to="/" replace />
               )
             ) : (
-              <SignInPage onLogin={onLogin} onSignup={onSignup} />
+              <SignInPage
+                onLogin={onLogin}
+                onSignup={onSignup}
+                onGoogleAction={onGoogleLogin}
+              />
             )
           }
         />
@@ -78,7 +97,11 @@ const AnimatedRoutes = ({
             user ? (
               <PromiseResultPage user={user} />
             ) : (
-              <SignInPage onLogin={onLogin} onSignup={onSignup} />
+              <SignInPage
+                onLogin={onLogin}
+                onSignup={onSignup}
+                onGoogleAction={onGoogleLogin}
+              />
             )
           }
         />
@@ -88,7 +111,11 @@ const AnimatedRoutes = ({
             user ? (
               <PaymentResultPage onActioned={onPromiseCreated} />
             ) : (
-              <SignInPage onLogin={onLogin} onSignup={onSignup} />
+              <SignInPage
+                onLogin={onLogin}
+                onSignup={onSignup}
+                onGoogleAction={onGoogleLogin}
+              />
             )
           }
         />
@@ -137,6 +164,7 @@ const AppContent = ({
         <AnimatedRoutes
           onLogin={handleEmailLogin}
           onSignup={handleEmailSignup}
+          onGoogleLogin={() => handleGoogleLogin()}
           user={user}
           activePromise={activePromise}
           loading={loading}
@@ -345,9 +373,23 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
           // Stay on the sign in page as requested
         } else {
           toast.success("Check your email for the confirmation link!");
-          navigate("/");
+          navigate("/verify-email");
         }
       }
+    } catch (error) {
+      toast.error(error.error_description || error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin,
+        },
+      });
+      if (error) throw error;
     } catch (error) {
       toast.error(error.error_description || error.message);
     }
