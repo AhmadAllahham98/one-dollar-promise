@@ -16,6 +16,8 @@ import { PromiseStatusPage } from "./components/Pages/PromiseStatusPage";
 import { PaymentResultPage } from "./components/Pages/PaymentResultPage";
 import { LoadingPage } from "./components/Pages/LoadingPage";
 import { EmailVerificationPage } from "./components/Pages/EmailVerificationPage";
+import { PrivacyPage } from "./components/Pages/PrivacyPage";
+import { TermsPage } from "./components/Pages/TermsPage";
 import { UserPromiseDisplay } from "./components/organisms/UserPromiseDisplay";
 import { Header } from "./components/organisms/Header";
 import { Footer } from "./components/organisms/Footer";
@@ -119,6 +121,8 @@ const AnimatedRoutes = ({
             )
           }
         />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Routes>
     </AnimatePresence>
   );

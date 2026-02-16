@@ -1,0 +1,75 @@
+﻿
+> one-dollar-promise@0.0.0 test
+> vitest --run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Projects/web-projects/one-dollar-promise/Web[39m
+
+ [32mΓ£ô[39m [30m[42m unit [49m[39m src/utils/authUtils.test.js [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mΓ£ô[39m [30m[42m unit [49m[39m src/utils/promiseUtils.test.js [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32mΓ£ô[39m [30m[42m unit [49m[39m src/utils/stripeUtils.test.js [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [31mΓ¥»[39m [30m[45m storybook (chromium) [49m[39m src/components/Pages/SigninPage.stories.jsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 110[2mms[22m[39m
+[31m   [31m├ù[31m Default[39m[32m 108[2mms[22m[39m
+ [31mΓ¥»[39m [30m[45m storybook (chromium) [49m[39m src/components/Pages/LandingPage.stories.jsx [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 121[2mms[22m[39m
+[31m   [31m├ù[31m Default[39m[32m 119[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/atoms/InputBox.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 612[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 581[2mms[22m[39m
+node.exe : [90mstderr[2m | src/components/organisms/PromiseForm.stories.jsx[2m > [22m[2mDefault
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\ahmad\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([90mstderr[2m...[22m[2mDefault:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[22m[39mUnknown event handler property `onPromise`. It will be ignored.
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/TextMessage.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 636[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Success [33m 596[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/molecules/UserPromise.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 629[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 581[2mms[22m[39m
+[90mstderr[2m | src/components/atoms/InputField.stories.jsx[2m > [22m[2mWith Value
+[22m[39mYou provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use 
+`defaultValue`. Otherwise, set either `onChange` or `readOnly`.
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/atoms/GlassCard.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 685[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 639[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/Header.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 703[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Logged In [33m 634[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/atoms/InputField.stories.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 714[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 621[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/UserPromiseDisplay.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 703[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 636[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/PromiseDisplay.stories.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 743[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Actionable [33m 646[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/SignUpAuthForm.stories.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 749[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Login [33m 679[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/atoms/Button.stories.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 929[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Large Solid [33m 639[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/atoms/Quote.stories.jsx [2m([22m[2m1 test[22m[2m)[22m[33m 476[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 476[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/PromiseForm.stories.jsx [2m([22m[2m1 test[22m[2m)[22m[33m 474[2mms[22m[39m
+   [33m[2mΓ£ô[22m[39m Default [33m 474[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/ActivePromiseCard.stories.jsx [2m([22m[2m1 test[22m[2m)[22m[32m 196[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/organisms/Footer.stories.jsx [2m([22m[2m1 test[22m[2m)[22m[32m 201[2mms[22m[39m
+ [32mΓ£ô[39m [30m[45m storybook (chromium) [49m[39m src/components/templates/MainTemplate.stories.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 249[2mms[22m[39m
+
+[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[39m[1m[41m Failed Tests 2 [49m[22m[31mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[39m
+
+[41m[1m FAIL [22m[49m [30m[45m storybook (chromium) [49m[39m src/components/Pages/LandingPage.stories.jsx[2m > [22mDefault
+[41m[1m FAIL [22m[49m [30m[45m storybook (chromium) [49m[39m src/components/Pages/SigninPage.stories.jsx[2m > [22mDefault
+[31m[1mError[22m: 
+[34mClick to debug the error directly in Storybook: 
+http://localhost:6006/?path=/story/pages-landingpage--default&addonPanel=storybook/interactions/panel[31m
+
+You cannot render a <Router> inside another <Router>. You should never have more than one in your app.[39m
+[90m [2mΓ¥»[22m invariant node_modules/.cache/storybook/10.2.6/a4d33ccd24650e084229a2845c61520752fd03125e9c099717d339608807e1d1/sb-vitest/deps/react-router
+-dom.js?v=effbeed2:[2m631:10[22m[39m
+[90m [2mΓ¥»[22m Router node_modules/.cache/storybook/10.2.6/a4d33ccd24650e084229a2845c61520752fd03125e9c099717d339608807e1d1/sb-vitest/deps/react-router-do
+m.js?v=effbeed2:[2m7073:2[22m[39m
+
+[31m[2mΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/2]ΓÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m18 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m52 passed[39m[22m[90m (54)[39m
+[2m   Start at [22m 13:38:20
+[2m   Duration [22m 5.38s[2m (transform 3.51s, setup 19.77s, import 5.98s, tests 8.95s, environment 6.27s)[22m
+
