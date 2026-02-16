@@ -134,6 +134,7 @@ const AppContent = ({
   handleLogout,
   handleLogoClick,
   navigateToSignIn,
+  handleGoogleLogin,
   onPromiseCreated,
 }) => {
   return (
@@ -164,7 +165,7 @@ const AppContent = ({
         <AnimatedRoutes
           onLogin={handleEmailLogin}
           onSignup={handleEmailSignup}
-          onGoogleLogin={() => handleGoogleLogin()}
+          onGoogleLogin={handleGoogleLogin}
           user={user}
           activePromise={activePromise}
           loading={loading}
@@ -410,6 +411,7 @@ const AppWrapper = ({ user, activePromise, loading, refreshPromise }) => {
       handleLogout={handleLogout}
       handleLogoClick={handleLogoClick}
       navigateToSignIn={navigateToSignIn}
+      handleGoogleLogin={handleGoogleLogin}
       onPromiseCreated={refreshPromise}
     />
   );
