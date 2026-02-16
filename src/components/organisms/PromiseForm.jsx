@@ -37,7 +37,7 @@ export const PromiseForm = ({ onPromiseSubmit, className = "", ...props }) => {
           size="large" // This is intentionally large per design
           style="solid"
           type="submit"
-          label="Promise?"
+          label="Promise"
           iconRight={Icon}
         />
       </div>
