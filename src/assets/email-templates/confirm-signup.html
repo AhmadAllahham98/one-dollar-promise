@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Verify your account | One Dollar Promise</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Fonts Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style type="text/css">
+        /* Client-specific Styles */
+        body { width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; margin: 0; padding: 0; background-color: #0e1519; }
+        img { outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; }
+        table { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        
+        /* Template Styles matching PaymentResultPage */
+        .wrapper { background-color: #0e1519; padding: 80px 20px; text-align: center; }
+        .content { width: 100%; max-width: 600px; margin: 0 auto; display: inline-block; vertical-align: top; text-align: center; }
+        
+        .header { padding-bottom: 32px; text-align: center; }
+        .logo-img { display: block; margin: 0 auto; width: 180px; height: auto; border: 0; outline: none; }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; color: #f4aa4f; font-weight: 700; text-decoration: none; letter-spacing: 2px; opacity: 0.9; margin-top: 10px; display: block; }
+        
+        /* GlassCard Mimic */
+        .glass-card {
+            background-color: #1b2a30;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 64px 40px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* TextMessage Mimic */
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #ffffff;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #f3f5f6;
+            line-height: 1.6;
+            margin: 0 0 40px 0;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: #f4aa4f;
+            color: #0e1519 !important;
+            padding: 16px 44px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .footer {
+            padding-top: 60px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            color: #4b5563;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Mobile Overrides */
+        @media only screen and (max-width: 480px) {
+            .wrapper { padding: 40px 10px; }
+            .glass-card { padding: 48px 20px !important; }
+            .title { font-size: 26px !important; }
+            .message { font-size: 14px !important; }
+            .button { width: 100% !important; box-sizing: border-box; padding: 16px 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <div class="header">
+                <a href="https://onedollarpromise.com" style="text-decoration: none;">
+                    <!-- Recommendation: Use a PNG version (like Design/Logo/White.png) uploaded to your public folder -->
+                    <img src="https://onedollarpromise.com/logo.png" width="180" alt="One Dollar Promise" class="logo-img" />
+                    <span class="logo-text">ONE DOLLAR PROMISE</span>
+                </a>
+            </div>
+            
+            <!--[if mso]>
+            <table align="center" width="600" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            <td style="background-color: #1b2a30; border: 1px solid #333333; border-radius: 12px; padding: 64px 40px;">
+            <![endif]-->
+            
+            <div class="glass-card">
+                <h1 class="title">Verify your account</h1>
+                
+                <p class="message">
+                    Welcome! You're one step away from committing to your goals. 
+                    Please confirm your email address to activate your promise.
+                </p>
+                
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="center">
+                            <a href="{{ .ConfirmationURL }}" class="button">Verify Email</a>
+                        </td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 48px; font-family: 'Roboto', sans-serif; font-size: 12px; color: #4b5563; font-weight: 400; text-align: center;">
+                    If you didn't request this email, you can safely ignore it.
+                </p>
+            </div>
+            
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+            
+            <div class="footer">
+                &copy; 2026 ONE DOLLAR PROMISE. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
